@@ -121,13 +121,6 @@ export default function StringCaseConverter() {
       description="Convert between different string cases"
       icon={<Type className="h-6 w-6 text-blue-500" />}
       outputValue={formatOutput()}
-      infoContent={
-        <p>
-          String case conversion transforms text between different naming conventions used in programming.
-          Each case style has specific use cases: camelCase for JavaScript variables, snake_case for Python,
-          kebab-case for URLs, etc.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

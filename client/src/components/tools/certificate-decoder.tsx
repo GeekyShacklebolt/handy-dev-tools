@@ -140,12 +140,6 @@ jQ==
       description="Decode and inspect X.509 PEM certificates"
       icon={<Shield className="h-5 w-5 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          Decodes X.509 PEM certificates to show Subject, Issuer, Validity, Serial Number,
-          Public Key info, Extensions, and SHA-256 fingerprint.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-3">

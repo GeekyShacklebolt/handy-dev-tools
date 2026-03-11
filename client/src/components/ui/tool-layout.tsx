@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Copy, Info } from "lucide-react";
+import { Copy } from "lucide-react";
 
 interface ToolLayoutProps {
   title: string;
@@ -10,7 +10,6 @@ interface ToolLayoutProps {
   icon: React.ReactNode;
   children: React.ReactNode;
   outputValue?: string;
-  infoContent?: React.ReactNode;
 }
 
 export default function ToolLayout({
@@ -19,7 +18,6 @@ export default function ToolLayout({
   icon,
   children,
   outputValue,
-  infoContent
 }: ToolLayoutProps) {
   const { toast } = useToast();
 
@@ -61,22 +59,6 @@ export default function ToolLayout({
         {children}
       </div>
 
-      {/* Info Section */}
-      {infoContent && (
-        <Card className="bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
-          <CardHeader>
-            <CardTitle className="text-blue-900 dark:text-blue-200 flex items-center">
-              <Info className="mr-2 h-5 w-5" />
-              Information
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-blue-800 dark:text-blue-300 text-sm leading-relaxed">
-              {infoContent}
-            </div>
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 }

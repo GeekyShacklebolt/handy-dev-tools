@@ -241,13 +241,6 @@ ${headersCode}
       description="Convert cURL commands to code"
       icon={<Code className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          cURL to code conversion helps developers translate cURL commands into various programming languages.
-          This is useful for integrating API calls into applications or understanding how to make HTTP requests
-          programmatically.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

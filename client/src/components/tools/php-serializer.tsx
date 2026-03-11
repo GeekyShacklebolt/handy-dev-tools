@@ -198,12 +198,6 @@ export default function PHPSerializer() {
       description="Serialize and unserialize PHP data"
       icon={<Code className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          PHP serialization converts data structures into a string format that can be stored or transmitted
-          and later reconstructed. This is useful for caching, session storage, and data persistence in PHP applications.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

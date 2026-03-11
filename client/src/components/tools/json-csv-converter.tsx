@@ -96,12 +96,6 @@ Bob Johnson,35,Chicago,bob@example.com`;
       description="Convert between JSON and CSV formats"
       icon={<Table className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          JSON to CSV conversion transforms JSON arrays into comma-separated values format.
-          CSV to JSON converts tabular data into JSON object arrays. Both formats are commonly used for data exchange.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

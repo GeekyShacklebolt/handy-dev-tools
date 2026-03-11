@@ -98,12 +98,6 @@ export default function UUIDGenerator() {
       description="Generate and decode UUIDs and ULIDs"
       icon={<Fingerprint className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          UUID (Universally Unique Identifier) is a 128-bit number used to uniquely identify information.
-          Version 4 UUIDs are randomly generated and are the most commonly used type.
-        </p>
-      }
     >
       <ToolInput title="Generator">
         <div className="space-y-4">

@@ -64,13 +64,6 @@ export default function Base64Encoder() {
       description="Encode and decode Base64 strings"
       icon={<Code className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format.
-          It's commonly used to encode data that needs to be transmitted over media that are designed to deal
-          with textual data.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

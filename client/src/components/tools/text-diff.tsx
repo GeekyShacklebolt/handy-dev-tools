@@ -73,12 +73,6 @@ New line added`
       description="Compare text with side-by-side diff"
       icon={<GitCompare className="h-6 w-6 text-blue-500" />}
       outputValue={diffOutput}
-      infoContent={
-        <p>
-          Text diff shows the differences between two pieces of text. Lines starting with "-" are removed,
-          lines starting with "+" are added, and lines with no prefix are unchanged.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

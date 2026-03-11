@@ -67,12 +67,6 @@ Byte size: ${analysis.byteSize} bytes`;
       description="Analyze string properties and characters"
       icon={<Search className="h-6 w-6 text-blue-500" />}
       outputValue={formatAnalysis()}
-      infoContent={
-        <p>
-          String inspector analyzes text to provide detailed statistics including character count,
-          word count, line count, and character frequency analysis. Useful for content analysis and writing metrics.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

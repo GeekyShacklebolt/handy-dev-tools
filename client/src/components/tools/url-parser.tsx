@@ -66,12 +66,6 @@ export default function URLParser() {
       description="Parse URLs and extract components"
       icon={<Link className="h-6 w-6 text-blue-500" />}
       outputValue={parsedURL ? JSON.stringify(parsedURL, null, 2) : ""}
-      infoContent={
-        <p>
-          URL parsing breaks down a URL into its component parts including protocol, hostname, port, path,
-          query parameters, and fragment identifier. This is useful for debugging and understanding URL structure.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

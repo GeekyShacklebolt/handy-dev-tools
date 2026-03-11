@@ -73,12 +73,6 @@ export default function NumberBaseConverter() {
       description="Convert between different number bases"
       icon={<Calculator className="h-6 w-6 text-blue-500" />}
       outputValue={`Binary: ${output.binary}\nOctal: ${output.octal}\nDecimal: ${output.decimal}\nHexadecimal: ${output.hexadecimal}`}
-      infoContent={
-        <p>
-          Number base conversion allows you to convert numbers between different numeral systems.
-          Common bases include binary (base 2), octal (base 8), decimal (base 10), and hexadecimal (base 16).
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

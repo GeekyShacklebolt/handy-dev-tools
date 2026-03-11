@@ -104,22 +104,6 @@ export default function HTMLPreview() {
       description="Preview HTML code in real-time"
       icon={<Eye className="h-6 w-6 text-blue-500" />}
       outputValue={input}
-      infoContent={
-        <div>
-          <p className="mb-2">
-            HTML preview allows you to see how your HTML code will render in a browser.
-            This is useful for testing and debugging HTML structure and styling.
-          </p>
-          <div className="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900/20 rounded-md">
-            <div className="flex items-center">
-              <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 mr-2" />
-              <span className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
-                Warning: Only preview trusted HTML code. Malicious code can be dangerous.
-              </span>
-            </div>
-          </div>
-        </div>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

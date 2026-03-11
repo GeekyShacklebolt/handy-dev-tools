@@ -234,19 +234,6 @@ export default function UnixTimeConverter() {
       description="Convert between Unix timestamps, human-readable dates, and ISO 8601 format"
       icon={<Clock className="h-6 w-6 text-blue-500" />}
       outputValue={unixOutput}
-      infoContent={
-        <div>
-          <p className="mb-2">
-            Unix time is the number of seconds since January 1, 1970, 00:00:00 UTC (the Unix epoch).
-            It's widely used in programming and systems administration for storing timestamps in a
-            standardized format that's independent of timezone.
-          </p>
-          <p>
-            ISO 8601 is an international standard for date and time representation (e.g., 2023-01-01T12:00:00.000Z).
-            It's commonly used in APIs and data exchange formats.
-          </p>
-        </div>
-      }
     >
       <ToolInput title="Input" headerActions={
         <Button variant="outline" size="sm" onClick={clearAll}>

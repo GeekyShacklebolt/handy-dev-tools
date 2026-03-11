@@ -56,13 +56,6 @@ export default function HTMLJSXConverter() {
       description="Convert HTML to JSX format"
       icon={<Code className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          HTML to JSX converter transforms HTML markup into JSX syntax used in React.
-          It converts HTML attributes to their JSX equivalents (class → className, for → htmlFor, etc.)
-          and handles other React-specific requirements.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

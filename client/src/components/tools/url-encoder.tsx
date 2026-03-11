@@ -64,13 +64,6 @@ export default function URLEncoder() {
       description="Encode and decode URLs"
       icon={<Link className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          URL encoding (percent-encoding) is a mechanism to encode information in a Uniform Resource Identifier (URI)
-          under certain circumstances. It's used to encode special characters in URLs to ensure they are transmitted
-          correctly over the internet.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

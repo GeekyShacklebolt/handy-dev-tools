@@ -46,12 +46,6 @@ export default function BackslashEscape() {
       description="Escape and unescape backslashes"
       icon={<Code className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          Backslash escaping is used to handle backslashes in strings, particularly useful when dealing with
-          file paths, regular expressions, or JSON strings where backslashes need to be escaped or unescaped.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">
