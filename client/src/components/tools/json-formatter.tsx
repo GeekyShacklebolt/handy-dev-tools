@@ -1,15 +1,69 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { FileCode, Check, X, Search, Trash2, ChevronRight, ChevronDown, Wand2 } from "lucide-react";
+import { FileCode, Trash2, Wand2 } from "lucide-react";
 import ToolLayout, { ToolInput, ToolOutput } from "@/components/ui/tool-layout";
 import { JSONPath } from "jsonpath-plus";
 import { jsonrepair } from "jsonrepair";
-import { useToolState, clearToolState } from "@/hooks/use-tool-state";
+import { useToolState } from "@/hooks/use-tool-state";
+
+function getErrorLines(original: string): Set<number> {
+  const errorLines = new Set<number>();
+  try {
+    JSON.parse(original);
+    return errorLines;
+  } catch (_) {}
+
+  try {
+    const repaired = jsonrepair(original);
+    const origLines = original.split('\n');
+    const repLines = repaired.split('\n');
+    const maxLines = Math.max(origLines.length, repLines.length);
+    for (let i = 0; i < maxLines; i++) {
+      if ((origLines[i] || '') !== (repLines[i] || '')) {
+        errorLines.add(i);
+      }
+    }
+  } catch (_) {
+    // If repair also fails, try to extract position from native error
+    try {
+      JSON.parse(original);
+    } catch (e: any) {
+      const match = e.message?.match(/position (\d+)/);
+      if (match) {
+        const pos = parseInt(match[1]);
+        const before = original.slice(0, pos);
+        const line = before.split('\n').length - 1;
+        errorLines.add(line);
+      }
+    }
+  }
+  return errorLines;
+}
+
+function escapeHtml(s: string) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function renderHighlightedInput(text: string, errorLines: Set<number>): string {
+  if (!text) return '';
+  const lines = text.split('\n');
+  return lines.map((line, i) => {
+    const escaped = escapeHtml(line) || ' '; // preserve empty lines
+    if (errorLines.has(i)) {
+      return `<span class="json-error-line">${escaped}</span>`;
+    }
+    // Basic JSON syntax coloring for the input
+    return escaped
+      .replace(/^(\s*)("(?:[^"\\]|\\.)*")(\s*:\s*)/g, '$1<span class="json-key">$2</span>$3')
+      .replace(/:\s*("(?:[^"\\]|\\.)*")/g, ': <span class="json-str">$1</span>')
+      .replace(/:\s*(true|false|null)\b/g, ': <span class="json-kw">$1</span>')
+      .replace(/:\s*(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)\b/g, ': <span class="json-num">$1</span>');
+  }).join('\n');
+}
 
 export default function JSONFormatter() {
   const [state, setState] = useToolState("json-formatter", {
@@ -18,7 +72,6 @@ export default function JSONFormatter() {
     isValid: null as boolean | null,
     autoRepair: true,
     wasRepaired: false,
-    repairErrors: [] as string[],
     indentSize: "2",
     jsonPath: "",
     pathResult: "",
@@ -28,55 +81,41 @@ export default function JSONFormatter() {
     displayMode: "formatted" as "formatted" | "minified"
   });
 
-  const { input, output, isValid, autoRepair, wasRepaired, repairErrors, indentSize, jsonPath, pathResult, pathResultParsed, parsedJson, displayMode } = state;
+  const { input, output, isValid, autoRepair, wasRepaired, indentSize, jsonPath, pathResult, pathResultParsed, parsedJson, displayMode } = state;
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const highlightRef = useRef<HTMLDivElement>(null);
+  const [errorLines, setErrorLines] = useState<Set<number>>(new Set());
 
   const updateState = (updates: Partial<typeof state>) => {
     setState({ ...state, ...updates });
   };
 
-  const parseWithRepair = (text: string): { parsed: any; repaired: boolean; errors: string[] } => {
-    // Try native parse first
+  // Sync scroll between textarea and highlight overlay
+  const syncScroll = () => {
+    if (textareaRef.current && highlightRef.current) {
+      highlightRef.current.scrollTop = textareaRef.current.scrollTop;
+      highlightRef.current.scrollLeft = textareaRef.current.scrollLeft;
+    }
+  };
+
+  const parseWithRepair = (text: string): { parsed: any; repaired: boolean } => {
     try {
-      return { parsed: JSON.parse(text), repaired: false, errors: [] };
+      return { parsed: JSON.parse(text), repaired: false };
     } catch (nativeError) {
       if (!autoRepair) throw nativeError;
     }
-
-    try {
-      const repaired = jsonrepair(text);
-      const parsed = JSON.parse(repaired);
-
-      // Diff original vs repaired to find what was fixed
-      const errors: string[] = [];
-      const origLines = text.split('\n');
-      const repLines = repaired.split('\n');
-      const maxLines = Math.max(origLines.length, repLines.length);
-      for (let i = 0; i < maxLines; i++) {
-        if ((origLines[i] || '') !== (repLines[i] || '')) {
-          errors.push(`Line ${i + 1}: auto-fixed`);
-          if (errors.length >= 10) {
-            errors.push('... and more');
-            break;
-          }
-        }
-      }
-      if (errors.length === 0) errors.push('JSON was auto-repaired');
-
-      return { parsed, repaired: true, errors };
-    } catch (repairError) {
-      throw repairError;
-    }
+    const repaired = jsonrepair(text);
+    return { parsed: JSON.parse(repaired), repaired: true };
   };
 
   const formatJSON = () => {
     try {
-      const { parsed, repaired, errors } = parseWithRepair(input);
+      const { parsed, repaired } = parseWithRepair(input);
       const formatted = JSON.stringify(parsed, null, parseInt(indentSize));
       updateState({
         output: formatted,
         isValid: true,
         wasRepaired: repaired,
-        repairErrors: errors,
         parsedJson: parsed,
         displayMode: "formatted"
       });
@@ -85,7 +124,6 @@ export default function JSONFormatter() {
         output: `Error: ${error instanceof Error ? error.message : 'Invalid JSON'}`,
         isValid: false,
         wasRepaired: false,
-        repairErrors: [],
         parsedJson: null
       });
     }
@@ -93,13 +131,12 @@ export default function JSONFormatter() {
 
   const minifyJSON = () => {
     try {
-      const { parsed, repaired, errors } = parseWithRepair(input);
+      const { parsed, repaired } = parseWithRepair(input);
       const minified = JSON.stringify(parsed);
       updateState({
         output: minified,
         isValid: true,
         wasRepaired: repaired,
-        repairErrors: errors,
         parsedJson: parsed,
         displayMode: "minified"
       });
@@ -108,42 +145,8 @@ export default function JSONFormatter() {
         output: `Error: ${error instanceof Error ? error.message : 'Invalid JSON'}`,
         isValid: false,
         wasRepaired: false,
-        repairErrors: [],
         parsedJson: null
       });
-    }
-  };
-
-  const validateJSON = () => {
-    try {
-      JSON.parse(input);
-      updateState({
-        isValid: true,
-        wasRepaired: false,
-        repairErrors: [],
-        output: "✓ Valid JSON",
-        parsedJson: JSON.parse(input)
-      });
-    } catch (_) {
-      try {
-        const repaired = jsonrepair(input);
-        JSON.parse(repaired);
-        updateState({
-          isValid: false,
-          wasRepaired: true,
-          repairErrors: ["JSON is invalid but can be auto-repaired. Click Format to fix."],
-          output: "✗ Invalid JSON (auto-repairable — click Format)",
-          parsedJson: null
-        });
-      } catch (error) {
-        updateState({
-          isValid: false,
-          wasRepaired: false,
-          repairErrors: [],
-          output: `✗ Invalid JSON: ${error instanceof Error ? error.message : 'Unknown error'}`,
-          parsedJson: null
-        });
-      }
     }
   };
 
@@ -152,31 +155,41 @@ export default function JSONFormatter() {
       updateState({ pathResult: "Please format or validate JSON first", pathResultParsed: null });
       return;
     }
-
     if (!jsonPath.trim()) {
       updateState({ pathResult: "", pathResultParsed: null });
       return;
     }
-
     try {
       const result = JSONPath({ path: jsonPath, json: parsedJson });
       if (result.length === 0) {
         updateState({ pathResult: "No matches found", pathResultParsed: null });
       } else {
-        updateState({ 
+        updateState({
           pathResult: JSON.stringify(result, null, 2),
           pathResultParsed: result
         });
       }
     } catch (error) {
-      updateState({ 
+      updateState({
         pathResult: `JSONPath Error: ${error instanceof Error ? error.message : 'Invalid path'}`,
         pathResultParsed: null
       });
     }
   };
 
-  // Auto-format JSON as user types or changes indent
+  // Compute error lines for highlighting
+  useEffect(() => {
+    if (!input.trim()) {
+      setErrorLines(new Set());
+      return;
+    }
+    const timeout = setTimeout(() => {
+      setErrorLines(getErrorLines(input));
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, [input]);
+
+  // Auto-format JSON as user types
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (input.trim()) {
@@ -188,8 +201,7 @@ export default function JSONFormatter() {
           parsedJson: null
         });
       }
-    }, 500); // 500ms debounce for auto-formatting
-
+    }, 500);
     return () => clearTimeout(timeoutId);
   }, [input, indentSize, autoRepair]);
 
@@ -201,8 +213,7 @@ export default function JSONFormatter() {
       } else if (!jsonPath.trim()) {
         updateState({ pathResult: "" });
       }
-    }, 300); // 300ms debounce
-
+    }, 300);
     return () => clearTimeout(timeoutId);
   }, [jsonPath, parsedJson]);
 
@@ -212,7 +223,6 @@ export default function JSONFormatter() {
       output: "",
       isValid: null,
       wasRepaired: false,
-      repairErrors: [],
       jsonPath: "",
       pathResult: "",
       pathResultParsed: null,
@@ -221,7 +231,7 @@ export default function JSONFormatter() {
     });
   };
 
-    const renderCollapsibleJSON = (obj: any, path: string = "", indent: number = 0): string => {
+  const renderCollapsibleJSON = (obj: any, path: string = "", indent: number = 0): string => {
     const indentStr = " ".repeat(indent * parseInt(indentSize));
     const nextIndentStr = " ".repeat((indent + 1) * parseInt(indentSize));
 
@@ -230,44 +240,36 @@ export default function JSONFormatter() {
     if (typeof obj === "number") return `<span style="color: #f59e0b;">${obj}</span>`;
     if (typeof obj === "string") return `<span style="color: #10b981;">"${obj}"</span>`;
 
-        if (Array.isArray(obj)) {
+    if (Array.isArray(obj)) {
       if (obj.length === 0) return "[]";
-
       const isCollapsed = state.collapsedNodes?.includes(path) || false;
       const toggleIcon = isCollapsed ?
         `<span class="cursor-pointer inline-block w-4 h-4 mr-1" onclick="toggleNode('${path}')">▶</span>` :
         `<span class="cursor-pointer inline-block w-4 h-4 mr-1" onclick="toggleNode('${path}')">▼</span>`;
-
       if (isCollapsed) {
         return `${toggleIcon}[<span style="color: #8b5cf6;">${obj.length} items</span>]`;
       }
-
       const items = obj.map((item, index) =>
         renderCollapsibleJSON(item, `${path}[${index}]`, indent + 1)
       ).join(`,\n${nextIndentStr}`);
-
       return `${toggleIcon}[\n${nextIndentStr}${items}\n${indentStr}]`;
     }
 
-        if (typeof obj === "object") {
+    if (typeof obj === "object") {
       const keys = Object.keys(obj);
       if (keys.length === 0) return "{}";
-
       const isCollapsed = state.collapsedNodes?.includes(path) || false;
       const toggleIcon = isCollapsed ?
         `<span class="cursor-pointer inline-block w-4 h-4 mr-1" onclick="toggleNode('${path}')">▶</span>` :
         `<span class="cursor-pointer inline-block w-4 h-4 mr-1" onclick="toggleNode('${path}')">▼</span>`;
-
       if (isCollapsed) {
         return `${toggleIcon}{<span style="color: #8b5cf6;">${keys.length} properties</span>}`;
       }
-
       const items = keys.map(key => {
         const keyPath = path ? `${path}.${key}` : key;
         const value = renderCollapsibleJSON(obj[key], keyPath, indent + 1);
         return `<span style="color: #ffffff;">"${key}"</span>: ${value}`;
       }).join(`,\n${nextIndentStr}`);
-
       return `${toggleIcon}{\n${nextIndentStr}${items}\n${indentStr}}`;
     }
 
@@ -285,12 +287,9 @@ export default function JSONFormatter() {
     updateState({ collapsedNodes: newCollapsedNodes });
   }, [state.collapsedNodes, updateState]);
 
-  // Make toggleNode available globally for onclick handlers
   useEffect(() => {
     (window as any).toggleNode = toggleNode;
-    return () => {
-      delete (window as any).toggleNode;
-    };
+    return () => { delete (window as any).toggleNode; };
   }, [state.collapsedNodes, toggleNode]);
 
   const highlightJSON = (jsonString: string) => {
@@ -355,7 +354,7 @@ export default function JSONFormatter() {
             <Button size="sm" onClick={formatJSON}>Format</Button>
             <Button size="sm" variant="outline" onClick={minifyJSON}>Minify</Button>
             <Select value={indentSize} onValueChange={(value) => updateState({ indentSize: value })}>
-              <SelectTrigger className="h-9 w-[100px] text-xs">
+              <SelectTrigger className="h-8 w-[90px] text-xs px-2">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -378,13 +377,34 @@ export default function JSONFormatter() {
             </div>
           </div>
 
-          <Textarea
-            id="json-input"
-            placeholder='{"name": "John", "age": 30}'
-            value={input}
-            onChange={(e) => updateState({ input: e.target.value })}
-            className="font-mono text-xs h-[500px] resize-none"
-          />
+          {/* Code editor with error highlights */}
+          <div className="json-editor-wrap relative h-[500px] rounded-md border border-input bg-background overflow-hidden">
+            <div
+              ref={highlightRef}
+              className="json-editor-highlights absolute inset-0 p-3 font-mono text-xs whitespace-pre overflow-auto pointer-events-none"
+              aria-hidden="true"
+              dangerouslySetInnerHTML={{
+                __html: renderHighlightedInput(input, errorLines) + '\n'
+              }}
+            />
+            <textarea
+              ref={textareaRef}
+              id="json-input"
+              placeholder='{"name": "John", "age": 30}'
+              value={input}
+              onChange={(e) => updateState({ input: e.target.value })}
+              onScroll={syncScroll}
+              className="json-editor-textarea absolute inset-0 p-3 font-mono text-xs whitespace-pre bg-transparent text-transparent caret-white resize-none w-full h-full outline-none overflow-auto"
+              spellCheck={false}
+            />
+          </div>
+
+          {errorLines.size > 0 && (
+            <div className="text-xs text-red-400">
+              {errorLines.size} error{errorLines.size > 1 ? 's' : ''} detected
+              {autoRepair && wasRepaired && ' (auto-fixed in output)'}
+            </div>
+          )}
         </div>
       </ToolInput>
 
@@ -395,16 +415,9 @@ export default function JSONFormatter() {
             placeholder="JSONPath e.g: $.store.book[*].author"
             value={jsonPath}
             onChange={(e) => updateState({ jsonPath: e.target.value })}
-            className="h-9 text-xs"
+            className="h-8 text-xs"
             disabled={!parsedJson}
           />
-
-          {wasRepaired && isValid && (
-            <div className="flex items-center gap-2 px-2.5 py-1.5 bg-amber-500/10 border border-amber-500/30 rounded-md text-xs text-amber-400">
-              <Wand2 className="h-3.5 w-3.5 text-amber-500 shrink-0" />
-              <span><span className="font-medium">Auto-repaired</span> — malformed input was fixed automatically.</span>
-            </div>
-          )}
 
           <div className="p-3 bg-muted rounded-md font-mono text-xs whitespace-pre-wrap max-h-[500px] overflow-y-auto">
             {jsonPath.trim() && pathResult ? (
