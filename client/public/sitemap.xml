@@ -3,7 +3,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -11,217 +11,217 @@
   <!-- Individual Tool Pages -->
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/unix-time/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/base64-string/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/base64-image/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/url-encode/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/html-entity/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/hex-ascii/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/number-base/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/json-format/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/yaml-json/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/json-csv/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/json-to-code/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/php-json/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/jwt-debugger/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/html-jsx/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/sql-formatter/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/beautify-minify/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/curl-to-code/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/svg-css/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/regex-tester/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/text-diff/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/string-case/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/string-inspector/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/line-sort-dedupe/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/backslash-escape/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/lorem-ipsum/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/markdown-preview/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/html-preview/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/hash-generator/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/uuid-generator/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/random-string/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/qr-code/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/color-converter/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/cron-parser/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/url-parser/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/certificate-decoder/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.shivasaxena.com/handy-dev-tools/tool/php-serializer/</loc>
-    <lastmod>2025-07-18</lastmod>
+    <lastmod>2026-03-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
