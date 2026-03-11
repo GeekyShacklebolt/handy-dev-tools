@@ -3,140 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Entity - HandyDevTools</title>
-    
-    <!-- Meta Tags -->
-    <meta name="description" content="Encode and decode HTML entities - Free online developer tool by HandyDevTools. Fast, secure, and client-side processing.">
-    <meta name="keywords" content="HTML Entity, developer tools, online tools, html, entity, encode, decode">
+    <title>HTML Entity Encoder &amp; Decoder - Special Characters Tool | HandyDevTools</title>
+
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="Encode and decode HTML entities. Convert special characters like &lt;, &gt;, &amp;, quotes to HTML entities and back. Free online HTML entity converter.">
+    <meta name="keywords" content="html entity encoder, html entity decoder, html special characters, html entities, encode html, decode html entities">
     <meta name="author" content="HandyDevTools">
     <meta name="robots" content="index, follow">
-    
+
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.shivasaxena.com/handy-dev-tools/tool/html-entity">
-    <meta property="og:title" content="HTML Entity - HandyDevTools">
-    <meta property="og:description" content="Encode and decode HTML entities">
+    <meta property="og:title" content="HTML Entity Encoder &amp; Decoder - Special Characters Tool | HandyDevTools">
+    <meta property="og:description" content="Encode and decode HTML entities. Convert special characters like &lt;, &gt;, &amp;, quotes to HTML entities and back. Free online HTML entity converter.">
     <meta property="og:image" content="https://www.shivasaxena.com/handy-dev-tools/og-image.svg">
-    
+    <meta property="og:site_name" content="HandyDevTools">
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://www.shivasaxena.com/handy-dev-tools/tool/html-entity">
-    <meta property="twitter:title" content="HTML Entity - HandyDevTools">
-    <meta property="twitter:description" content="Encode and decode HTML entities">
+    <meta property="twitter:title" content="HTML Entity Encoder &amp; Decoder - Special Characters Tool | HandyDevTools">
+    <meta property="twitter:description" content="Encode and decode HTML entities. Convert special characters like &lt;, &gt;, &amp;, quotes to HTML entities and back. Free online HTML entity converter.">
     <meta property="twitter:image" content="https://www.shivasaxena.com/handy-dev-tools/og-image.svg">
-    
+
     <!-- Canonical -->
     <link rel="canonical" href="https://www.shivasaxena.com/handy-dev-tools/tool/html-entity">
-    
-    <!-- Instant redirect to main app -->
-    <!-- SEO page - redirects to SPA -->
-    
+
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/handy-dev-tools/favicon.ico">
-    
+    <link rel="icon" type="image/svg+xml" href="/handy-dev-tools/favicon.svg">
+
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "HTML Entity",
-      "description": "Encode and decode HTML entities",
-      "url": "https://www.shivasaxena.com/handy-dev-tools/tool/html-entity",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web Browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "isPartOf": {
-        "@type": "WebSite",
-        "name": "HandyDevTools",
-        "url": "https://www.shivasaxena.com/handy-dev-tools/"
-      }
+    [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "HTML Entity",
+    "description": "Encode and decode HTML entities. Convert special characters like <, >, &, quotes to HTML entities and back. Free online HTML entity converter.",
+    "url": "https://www.shivasaxena.com/handy-dev-tools/tool/html-entity",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "HandyDevTools",
+      "url": "https://www.shivasaxena.com/handy-dev-tools/"
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What are HTML entities?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "HTML entities are special codes that represent characters in HTML. For example, &lt; represents <, &amp; represents &. They prevent browsers from interpreting these characters as HTML markup."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do I need to encode HTML entities?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Encoding HTML entities prevents cross-site scripting (XSS) attacks and ensures special characters display correctly in web pages instead of being interpreted as HTML tags."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between named and numeric entities?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Named entities use readable names like &amp; for &. Numeric entities use Unicode code points like &#38; or &#x26;. Named entities are more readable but numeric entities can represent any Unicode character."
+        }
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "HandyDevTools",
+        "item": "https://www.shivasaxena.com/handy-dev-tools/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Conversion Tools",
+        "item": "https://www.shivasaxena.com/handy-dev-tools/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "HTML Entity",
+        "item": "https://www.shivasaxena.com/handy-dev-tools/tool/html-entity"
+      }
+    ]
+  }
+]
     </script>
-    
+
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            padding: 0;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        .hero {
             background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            padding: 3rem 1.5rem;
             text-align: center;
         }
-        .container {
-            max-width: 400px;
+        .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.75rem; color: white; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 1.5rem; color: white; }
+        .cta-btn {
+            display: inline-block;
+            background: white;
+            color: #1e40af;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+        .cta-btn:hover { transform: translateY(-2px); }
+        .content { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .breadcrumb { font-size: 0.875rem; color: #94a3b8; margin-bottom: 2rem; }
+        .breadcrumb a { color: #60a5fa; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        h2 { font-size: 1.5rem; font-weight: 600; margin: 2rem 0 1rem; color: #f1f5f9; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0 2rem;
+        }
+        .feature {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-size: 0.95rem;
+        }
+        .feature::before { content: "\2713 "; color: #22c55e; font-weight: bold; }
+        .use-cases { list-style: none; padding: 0; }
+        .use-cases li {
+            background: #1e293b;
+            border-left: 3px solid #3b82f6;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        .faq-item { margin-bottom: 1.5rem; }
+        .faq-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+        }
+        .faq-item p { color: #cbd5e1; font-size: 0.95rem; }
+        .related {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        .related a {
+            display: block;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 500;
+            transition: border-color 0.2s;
+        }
+        .related a:hover { border-color: #3b82f6; }
+        .related a span { display: block; font-size: 0.85rem; color: #94a3b8; font-weight: normal; margin-top: 0.25rem; }
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            color: #64748b;
+            font-size: 0.875rem;
+            border-top: 1px solid #1e293b;
+            margin-top: 2rem;
+        }
+        footer a { color: #60a5fa; text-decoration: none; }
+        .spinner-wrap {
+            display: none;
+            text-align: center;
             padding: 2rem;
         }
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
+            border: 3px solid rgba(255,255,255,0.2);
             border-radius: 50%;
-            border-top: 4px solid white;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+            border-top: 3px solid #3b82f6;
+            width: 32px;
+            height: 32px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 0.75rem;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        h1 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-        .subtitle {
-            margin: 0 0 1rem 0;
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        p {
-            margin: 0;
-            opacity: 0.7;
-            line-height: 1.5;
-        }
-        .fallback {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 0.5rem;
-            display: none;
-        }
-        .fallback a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .spinner-wrap p { font-size: 0.9rem; color: #94a3b8; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="spinner"></div>
+    <section class="hero">
         <h1>HTML Entity</h1>
-        <div class="subtitle">HandyDevTools</div>
-        <p>Loading your developer tool...</p>
-        
-        <div class="fallback" id="fallback">
-            <p>If you're not redirected automatically:</p>
-            <a href="/handy-dev-tools/#/tool/html-entity">Open HTML Entity →</a>
+        <p>Encode and decode HTML entities. Convert special characters like &lt;, &gt;, &amp;, quotes to HTML entities and back. Free online HTML entity converter.</p>
+        <a href="/handy-dev-tools/tool/html-entity" class="cta-btn" id="launch-btn">Use HTML Entity Now</a>
+        <div class="spinner-wrap" id="spinner">
+            <div class="spinner"></div>
+            <p>Loading tool...</p>
+        </div>
+    </section>
+
+    <div class="content">
+        <nav class="breadcrumb">
+            <a href="/handy-dev-tools/">HandyDevTools</a> &rsaquo;
+            <a href="/handy-dev-tools/">Conversion Tools</a> &rsaquo;
+            HTML Entity
+        </nav>
+
+        <h2>Features</h2>
+        <div class="features-grid">
+            <div class="feature">Convert special characters to HTML entities</div>
+            <div class="feature">Decode HTML entities back to characters</div>
+            <div class="feature">Support for named and numeric entities</div>
+            <div class="feature">Handle all HTML5 named character references</div>
+            <div class="feature">Bulk text encoding and decoding</div>
+        </div>
+
+        <h2>Common Use Cases</h2>
+        <ul class="use-cases">
+            <li>Preventing XSS by escaping user input</li>
+            <li>Displaying code snippets in HTML pages</li>
+            <li>Fixing broken characters in web content</li>
+        </ul>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>What are HTML entities?</h3>
+            <p>HTML entities are special codes that represent characters in HTML. For example, &amp;lt; represents &lt;, &amp;amp; represents &amp;. They prevent browsers from interpreting these characters as HTML markup.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Why do I need to encode HTML entities?</h3>
+            <p>Encoding HTML entities prevents cross-site scripting (XSS) attacks and ensures special characters display correctly in web pages instead of being interpreted as HTML tags.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What is the difference between named and numeric entities?</h3>
+            <p>Named entities use readable names like &amp;amp; for &amp;. Numeric entities use Unicode code points like &amp;#38; or &amp;#x26;. Named entities are more readable but numeric entities can represent any Unicode character.</p>
+        </div>
+
+        <h2>Related Tools</h2>
+        <div class="related">
+            <a href="/handy-dev-tools/tool/unix-time/">Unix Time Converter<span>Convert Unix timestamps to human-readable dates and vice versa. Supports seconds...</span></a>
+            <a href="/handy-dev-tools/tool/base64-string/">Base64 String<span>Encode and decode Base64 strings instantly. Supports UTF-8 text, URL-safe Base64...</span></a>
+            <a href="/handy-dev-tools/tool/base64-image/">Base64 Image<span>Convert images to Base64 data URIs and decode Base64 strings back to images. Sup...</span></a>
+            <a href="/handy-dev-tools/tool/url-encode/">URL Encode/Decode<span>Encode and decode URLs with percent-encoding. Handle special characters, query p...</span></a>
         </div>
     </div>
 
+    <footer>
+        <p><a href="/handy-dev-tools/">HandyDevTools</a> — 40+ free online developer tools. All processing happens client-side in your browser.</p>
+    </footer>
+
     <script>
-        // Immediate redirect
-        sessionStorage.setItem('spa-redirect', '/handy-dev-tools/tool/html-entity'); window.location.replace('/handy-dev-tools/');
-        
-        // Show fallback after 2 seconds for slow connections
-        setTimeout(function() {
-            document.getElementById('fallback').style.display = 'block';
-        }, 2000);
+        // Redirect to SPA
+        sessionStorage.setItem('spa-redirect', '/handy-dev-tools/tool/html-entity');
+        window.location.replace('/handy-dev-tools/');
     </script>
+    <noscript>
+        <p style="text-align:center;padding:2rem;">
+            <a href="/handy-dev-tools/#/tool/html-entity" style="color:#60a5fa;">Open HTML Entity →</a>
+        </p>
+    </noscript>
 </body>
 </html>

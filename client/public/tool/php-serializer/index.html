@@ -3,140 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHP Serializer - HandyDevTools</title>
-    
-    <!-- Meta Tags -->
-    <meta name="description" content="Serialize and unserialize PHP data - Free online developer tool by HandyDevTools. Fast, secure, and client-side processing.">
-    <meta name="keywords" content="PHP Serializer, developer tools, online tools, php, serialize, unserialize, data">
+    <title>PHP Serializer &amp; Unserializer - PHP Data Format Tool | HandyDevTools</title>
+
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="Serialize and unserialize PHP data. Convert between PHP serialize format and readable output. Debug PHP serialized strings. Free online PHP serializer.">
+    <meta name="keywords" content="php serializer, php unserialize, php serialize online, php data format, unserialize php, php serialize decoder">
     <meta name="author" content="HandyDevTools">
     <meta name="robots" content="index, follow">
-    
+
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.shivasaxena.com/handy-dev-tools/tool/php-serializer">
-    <meta property="og:title" content="PHP Serializer - HandyDevTools">
-    <meta property="og:description" content="Serialize and unserialize PHP data">
+    <meta property="og:title" content="PHP Serializer &amp; Unserializer - PHP Data Format Tool | HandyDevTools">
+    <meta property="og:description" content="Serialize and unserialize PHP data. Convert between PHP serialize format and readable output. Debug PHP serialized strings. Free online PHP serializer.">
     <meta property="og:image" content="https://www.shivasaxena.com/handy-dev-tools/og-image.svg">
-    
+    <meta property="og:site_name" content="HandyDevTools">
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://www.shivasaxena.com/handy-dev-tools/tool/php-serializer">
-    <meta property="twitter:title" content="PHP Serializer - HandyDevTools">
-    <meta property="twitter:description" content="Serialize and unserialize PHP data">
+    <meta property="twitter:title" content="PHP Serializer &amp; Unserializer - PHP Data Format Tool | HandyDevTools">
+    <meta property="twitter:description" content="Serialize and unserialize PHP data. Convert between PHP serialize format and readable output. Debug PHP serialized strings. Free online PHP serializer.">
     <meta property="twitter:image" content="https://www.shivasaxena.com/handy-dev-tools/og-image.svg">
-    
+
     <!-- Canonical -->
     <link rel="canonical" href="https://www.shivasaxena.com/handy-dev-tools/tool/php-serializer">
-    
-    <!-- Instant redirect to main app -->
-    <!-- SEO page - redirects to SPA -->
-    
+
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/handy-dev-tools/favicon.ico">
-    
+    <link rel="icon" type="image/svg+xml" href="/handy-dev-tools/favicon.svg">
+
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "PHP Serializer",
-      "description": "Serialize and unserialize PHP data",
-      "url": "https://www.shivasaxena.com/handy-dev-tools/tool/php-serializer",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web Browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "isPartOf": {
-        "@type": "WebSite",
-        "name": "HandyDevTools",
-        "url": "https://www.shivasaxena.com/handy-dev-tools/"
-      }
+    [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PHP Serializer",
+    "description": "Serialize and unserialize PHP data. Convert between PHP serialize format and readable output. Debug PHP serialized strings. Free online PHP serializer.",
+    "url": "https://www.shivasaxena.com/handy-dev-tools/tool/php-serializer",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "HandyDevTools",
+      "url": "https://www.shivasaxena.com/handy-dev-tools/"
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is PHP serialize format?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PHP serialize() converts a PHP value to a storable string representation. For example, an array ['a', 'b'] becomes a:2:{i:0;s:1:\"a\";i:1;s:1:\"b\";} with type and length information."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where is PHP serialized data commonly found?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "WordPress stores plugin settings, widget data, and transients in serialized format. It is also used in PHP session files and legacy database storage."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is PHP unserialize safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Unserializing untrusted data can be dangerous as it can trigger object instantiation and magic methods. This tool safely parses the data format without executing PHP code."
+        }
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "HandyDevTools",
+        "item": "https://www.shivasaxena.com/handy-dev-tools/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Utilities",
+        "item": "https://www.shivasaxena.com/handy-dev-tools/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "PHP Serializer",
+        "item": "https://www.shivasaxena.com/handy-dev-tools/tool/php-serializer"
+      }
+    ]
+  }
+]
     </script>
-    
+
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            padding: 0;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        .hero {
             background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            padding: 3rem 1.5rem;
             text-align: center;
         }
-        .container {
-            max-width: 400px;
+        .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.75rem; color: white; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 1.5rem; color: white; }
+        .cta-btn {
+            display: inline-block;
+            background: white;
+            color: #1e40af;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+        .cta-btn:hover { transform: translateY(-2px); }
+        .content { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .breadcrumb { font-size: 0.875rem; color: #94a3b8; margin-bottom: 2rem; }
+        .breadcrumb a { color: #60a5fa; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        h2 { font-size: 1.5rem; font-weight: 600; margin: 2rem 0 1rem; color: #f1f5f9; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0 2rem;
+        }
+        .feature {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-size: 0.95rem;
+        }
+        .feature::before { content: "\2713 "; color: #22c55e; font-weight: bold; }
+        .use-cases { list-style: none; padding: 0; }
+        .use-cases li {
+            background: #1e293b;
+            border-left: 3px solid #3b82f6;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        .faq-item { margin-bottom: 1.5rem; }
+        .faq-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+        }
+        .faq-item p { color: #cbd5e1; font-size: 0.95rem; }
+        .related {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        .related a {
+            display: block;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 500;
+            transition: border-color 0.2s;
+        }
+        .related a:hover { border-color: #3b82f6; }
+        .related a span { display: block; font-size: 0.85rem; color: #94a3b8; font-weight: normal; margin-top: 0.25rem; }
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            color: #64748b;
+            font-size: 0.875rem;
+            border-top: 1px solid #1e293b;
+            margin-top: 2rem;
+        }
+        footer a { color: #60a5fa; text-decoration: none; }
+        .spinner-wrap {
+            display: none;
+            text-align: center;
             padding: 2rem;
         }
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
+            border: 3px solid rgba(255,255,255,0.2);
             border-radius: 50%;
-            border-top: 4px solid white;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+            border-top: 3px solid #3b82f6;
+            width: 32px;
+            height: 32px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 0.75rem;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        h1 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-        .subtitle {
-            margin: 0 0 1rem 0;
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        p {
-            margin: 0;
-            opacity: 0.7;
-            line-height: 1.5;
-        }
-        .fallback {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 0.5rem;
-            display: none;
-        }
-        .fallback a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .spinner-wrap p { font-size: 0.9rem; color: #94a3b8; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="spinner"></div>
+    <section class="hero">
         <h1>PHP Serializer</h1>
-        <div class="subtitle">HandyDevTools</div>
-        <p>Loading your developer tool...</p>
-        
-        <div class="fallback" id="fallback">
-            <p>If you're not redirected automatically:</p>
-            <a href="/handy-dev-tools/#/tool/php-serializer">Open PHP Serializer →</a>
+        <p>Serialize and unserialize PHP data. Convert between PHP serialize format and readable output. Debug PHP serialized strings. Free online PHP serializer.</p>
+        <a href="/handy-dev-tools/tool/php-serializer" class="cta-btn" id="launch-btn">Use PHP Serializer Now</a>
+        <div class="spinner-wrap" id="spinner">
+            <div class="spinner"></div>
+            <p>Loading tool...</p>
+        </div>
+    </section>
+
+    <div class="content">
+        <nav class="breadcrumb">
+            <a href="/handy-dev-tools/">HandyDevTools</a> &rsaquo;
+            <a href="/handy-dev-tools/">Utilities</a> &rsaquo;
+            PHP Serializer
+        </nav>
+
+        <h2>Features</h2>
+        <div class="features-grid">
+            <div class="feature">Serialize PHP data structures</div>
+            <div class="feature">Unserialize PHP serialized strings</div>
+            <div class="feature">Pretty-print unserialized data</div>
+            <div class="feature">Handle nested arrays and objects</div>
+            <div class="feature">Validate serialized string format</div>
+        </div>
+
+        <h2>Common Use Cases</h2>
+        <ul class="use-cases">
+            <li>Debugging WordPress serialized options</li>
+            <li>Reading PHP session data</li>
+            <li>Converting serialized data from legacy PHP applications</li>
+        </ul>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>What is PHP serialize format?</h3>
+            <p>PHP serialize() converts a PHP value to a storable string representation. For example, an array [&#039;a&#039;, &#039;b&#039;] becomes a:2:{i:0;s:1:&quot;a&quot;;i:1;s:1:&quot;b&quot;;} with type and length information.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Where is PHP serialized data commonly found?</h3>
+            <p>WordPress stores plugin settings, widget data, and transients in serialized format. It is also used in PHP session files and legacy database storage.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Is PHP unserialize safe?</h3>
+            <p>Unserializing untrusted data can be dangerous as it can trigger object instantiation and magic methods. This tool safely parses the data format without executing PHP code.</p>
+        </div>
+
+        <h2>Related Tools</h2>
+        <div class="related">
+            <a href="/handy-dev-tools/tool/uuid-generator/">UUID/ULID Generator<span>Generate UUID v1, v4, v7 and ULID identifiers. Decode existing UUIDs to extract ...</span></a>
+            <a href="/handy-dev-tools/tool/qr-code/">QR Code Tools<span>Generate QR codes from text, URLs, or data. Read and decode QR codes from images...</span></a>
+            <a href="/handy-dev-tools/tool/hash-generator/">Hash Generator<span>Generate MD5, SHA-1, SHA-256, SHA-512, and other hash values from text or files....</span></a>
+            <a href="/handy-dev-tools/tool/color-converter/">Color Converter<span>Convert colors between HEX, RGB, HSL, HSV, and CMYK formats. Color picker, palet...</span></a>
         </div>
     </div>
 
+    <footer>
+        <p><a href="/handy-dev-tools/">HandyDevTools</a> — 40+ free online developer tools. All processing happens client-side in your browser.</p>
+    </footer>
+
     <script>
-        // Immediate redirect
-        sessionStorage.setItem('spa-redirect', '/handy-dev-tools/tool/php-serializer'); window.location.replace('/handy-dev-tools/');
-        
-        // Show fallback after 2 seconds for slow connections
-        setTimeout(function() {
-            document.getElementById('fallback').style.display = 'block';
-        }, 2000);
+        // Redirect to SPA
+        sessionStorage.setItem('spa-redirect', '/handy-dev-tools/tool/php-serializer');
+        window.location.replace('/handy-dev-tools/');
     </script>
+    <noscript>
+        <p style="text-align:center;padding:2rem;">
+            <a href="/handy-dev-tools/#/tool/php-serializer" style="color:#60a5fa;">Open PHP Serializer →</a>
+        </p>
+    </noscript>
 </body>
 </html>

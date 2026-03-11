@@ -3,140 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cURL to Code - HandyDevTools</title>
-    
-    <!-- Meta Tags -->
-    <meta name="description" content="Convert cURL commands to code - Free online developer tool by HandyDevTools. Fast, secure, and client-side processing.">
-    <meta name="keywords" content="cURL to Code, developer tools, online tools, curl, code generation, http, api">
+    <title>cURL to Code Converter - Python, JavaScript, Go &amp; More | HandyDevTools</title>
+
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="Convert cURL commands to code in Python, JavaScript, Go, PHP, Ruby, and more. Generate HTTP request code from cURL syntax. Free online cURL converter.">
+    <meta name="keywords" content="curl to code, curl to python, curl to javascript, curl converter, curl to fetch, curl to axios, convert curl command">
     <meta name="author" content="HandyDevTools">
     <meta name="robots" content="index, follow">
-    
+
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.shivasaxena.com/handy-dev-tools/tool/curl-to-code">
-    <meta property="og:title" content="cURL to Code - HandyDevTools">
-    <meta property="og:description" content="Convert cURL commands to code">
+    <meta property="og:title" content="cURL to Code Converter - Python, JavaScript, Go &amp; More | HandyDevTools">
+    <meta property="og:description" content="Convert cURL commands to code in Python, JavaScript, Go, PHP, Ruby, and more. Generate HTTP request code from cURL syntax. Free online cURL converter.">
     <meta property="og:image" content="https://www.shivasaxena.com/handy-dev-tools/og-image.svg">
-    
+    <meta property="og:site_name" content="HandyDevTools">
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://www.shivasaxena.com/handy-dev-tools/tool/curl-to-code">
-    <meta property="twitter:title" content="cURL to Code - HandyDevTools">
-    <meta property="twitter:description" content="Convert cURL commands to code">
+    <meta property="twitter:title" content="cURL to Code Converter - Python, JavaScript, Go &amp; More | HandyDevTools">
+    <meta property="twitter:description" content="Convert cURL commands to code in Python, JavaScript, Go, PHP, Ruby, and more. Generate HTTP request code from cURL syntax. Free online cURL converter.">
     <meta property="twitter:image" content="https://www.shivasaxena.com/handy-dev-tools/og-image.svg">
-    
+
     <!-- Canonical -->
     <link rel="canonical" href="https://www.shivasaxena.com/handy-dev-tools/tool/curl-to-code">
-    
-    <!-- Instant redirect to main app -->
-    <!-- SEO page - redirects to SPA -->
-    
+
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/handy-dev-tools/favicon.ico">
-    
+    <link rel="icon" type="image/svg+xml" href="/handy-dev-tools/favicon.svg">
+
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "cURL to Code",
-      "description": "Convert cURL commands to code",
-      "url": "https://www.shivasaxena.com/handy-dev-tools/tool/curl-to-code",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web Browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "isPartOf": {
-        "@type": "WebSite",
-        "name": "HandyDevTools",
-        "url": "https://www.shivasaxena.com/handy-dev-tools/"
-      }
+    [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "cURL to Code",
+    "description": "Convert cURL commands to code in Python, JavaScript, Go, PHP, Ruby, and more. Generate HTTP request code from cURL syntax. Free online cURL converter.",
+    "url": "https://www.shivasaxena.com/handy-dev-tools/tool/curl-to-code",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "HandyDevTools",
+      "url": "https://www.shivasaxena.com/handy-dev-tools/"
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What cURL options are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Common options including -X (method), -H (headers), -d (data), -u (auth), --cookie, -F (form data), -k (insecure), and many more are parsed and converted correctly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I get a cURL command from my browser?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In Chrome/Firefox DevTools, go to the Network tab, right-click any request, and select 'Copy as cURL'. Then paste it here to convert to your preferred language."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What languages are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Python (requests), JavaScript (fetch/axios), Go (net/http), PHP (cURL/Guzzle), Ruby (Net::HTTP), Java (HttpClient), and more."
+        }
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "HandyDevTools",
+        "item": "https://www.shivasaxena.com/handy-dev-tools/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Code Tools",
+        "item": "https://www.shivasaxena.com/handy-dev-tools/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "cURL to Code",
+        "item": "https://www.shivasaxena.com/handy-dev-tools/tool/curl-to-code"
+      }
+    ]
+  }
+]
     </script>
-    
+
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            padding: 0;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        .hero {
             background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            padding: 3rem 1.5rem;
             text-align: center;
         }
-        .container {
-            max-width: 400px;
+        .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.75rem; color: white; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 1.5rem; color: white; }
+        .cta-btn {
+            display: inline-block;
+            background: white;
+            color: #1e40af;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+        .cta-btn:hover { transform: translateY(-2px); }
+        .content { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .breadcrumb { font-size: 0.875rem; color: #94a3b8; margin-bottom: 2rem; }
+        .breadcrumb a { color: #60a5fa; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        h2 { font-size: 1.5rem; font-weight: 600; margin: 2rem 0 1rem; color: #f1f5f9; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0 2rem;
+        }
+        .feature {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-size: 0.95rem;
+        }
+        .feature::before { content: "\2713 "; color: #22c55e; font-weight: bold; }
+        .use-cases { list-style: none; padding: 0; }
+        .use-cases li {
+            background: #1e293b;
+            border-left: 3px solid #3b82f6;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        .faq-item { margin-bottom: 1.5rem; }
+        .faq-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+        }
+        .faq-item p { color: #cbd5e1; font-size: 0.95rem; }
+        .related {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        .related a {
+            display: block;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 500;
+            transition: border-color 0.2s;
+        }
+        .related a:hover { border-color: #3b82f6; }
+        .related a span { display: block; font-size: 0.85rem; color: #94a3b8; font-weight: normal; margin-top: 0.25rem; }
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            color: #64748b;
+            font-size: 0.875rem;
+            border-top: 1px solid #1e293b;
+            margin-top: 2rem;
+        }
+        footer a { color: #60a5fa; text-decoration: none; }
+        .spinner-wrap {
+            display: none;
+            text-align: center;
             padding: 2rem;
         }
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
+            border: 3px solid rgba(255,255,255,0.2);
             border-radius: 50%;
-            border-top: 4px solid white;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+            border-top: 3px solid #3b82f6;
+            width: 32px;
+            height: 32px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 0.75rem;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        h1 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-        .subtitle {
-            margin: 0 0 1rem 0;
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        p {
-            margin: 0;
-            opacity: 0.7;
-            line-height: 1.5;
-        }
-        .fallback {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 0.5rem;
-            display: none;
-        }
-        .fallback a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .spinner-wrap p { font-size: 0.9rem; color: #94a3b8; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="spinner"></div>
+    <section class="hero">
         <h1>cURL to Code</h1>
-        <div class="subtitle">HandyDevTools</div>
-        <p>Loading your developer tool...</p>
-        
-        <div class="fallback" id="fallback">
-            <p>If you're not redirected automatically:</p>
-            <a href="/handy-dev-tools/#/tool/curl-to-code">Open cURL to Code →</a>
+        <p>Convert cURL commands to code in Python, JavaScript, Go, PHP, Ruby, and more. Generate HTTP request code from cURL syntax. Free online cURL converter.</p>
+        <a href="/handy-dev-tools/tool/curl-to-code" class="cta-btn" id="launch-btn">Use cURL to Code Now</a>
+        <div class="spinner-wrap" id="spinner">
+            <div class="spinner"></div>
+            <p>Loading tool...</p>
+        </div>
+    </section>
+
+    <div class="content">
+        <nav class="breadcrumb">
+            <a href="/handy-dev-tools/">HandyDevTools</a> &rsaquo;
+            <a href="/handy-dev-tools/">Code Tools</a> &rsaquo;
+            cURL to Code
+        </nav>
+
+        <h2>Features</h2>
+        <div class="features-grid">
+            <div class="feature">Convert cURL commands to multiple programming languages</div>
+            <div class="feature">Support for Python (requests), JavaScript (fetch/axios), Go, PHP, Ruby</div>
+            <div class="feature">Handle headers, cookies, authentication, and request bodies</div>
+            <div class="feature">Parse complex cURL options correctly</div>
+            <div class="feature">Generate clean, production-ready code</div>
+        </div>
+
+        <h2>Common Use Cases</h2>
+        <ul class="use-cases">
+            <li>Converting API documentation cURL examples to your language</li>
+            <li>Migrating shell scripts to application code</li>
+            <li>Quick-starting HTTP client code from browser DevTools</li>
+        </ul>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>What cURL options are supported?</h3>
+            <p>Common options including -X (method), -H (headers), -d (data), -u (auth), --cookie, -F (form data), -k (insecure), and many more are parsed and converted correctly.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How do I get a cURL command from my browser?</h3>
+            <p>In Chrome/Firefox DevTools, go to the Network tab, right-click any request, and select &#039;Copy as cURL&#039;. Then paste it here to convert to your preferred language.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What languages are supported?</h3>
+            <p>Python (requests), JavaScript (fetch/axios), Go (net/http), PHP (cURL/Guzzle), Ruby (Net::HTTP), Java (HttpClient), and more.</p>
+        </div>
+
+        <h2>Related Tools</h2>
+        <div class="related">
+            <a href="/handy-dev-tools/tool/jwt-debugger/">JWT Debugger<span>Decode, inspect, and debug JWT tokens. View header, payload, and verify signatur...</span></a>
+            <a href="/handy-dev-tools/tool/html-jsx/">HTML to JSX<span>Convert HTML to JSX for React components. Automatically handles className, style...</span></a>
+            <a href="/handy-dev-tools/tool/sql-formatter/">SQL Formatter<span>Format and beautify SQL queries with proper indentation and syntax highlighting....</span></a>
+            <a href="/handy-dev-tools/tool/beautify-minify/">Beautify/Minify<span>Beautify or minify HTML, CSS, JavaScript, and XML code. Format code with proper ...</span></a>
         </div>
     </div>
 
+    <footer>
+        <p><a href="/handy-dev-tools/">HandyDevTools</a> — 40+ free online developer tools. All processing happens client-side in your browser.</p>
+    </footer>
+
     <script>
-        // Immediate redirect
-        sessionStorage.setItem('spa-redirect', '/handy-dev-tools/tool/curl-to-code'); window.location.replace('/handy-dev-tools/');
-        
-        // Show fallback after 2 seconds for slow connections
-        setTimeout(function() {
-            document.getElementById('fallback').style.display = 'block';
-        }, 2000);
+        // Redirect to SPA
+        sessionStorage.setItem('spa-redirect', '/handy-dev-tools/tool/curl-to-code');
+        window.location.replace('/handy-dev-tools/');
     </script>
+    <noscript>
+        <p style="text-align:center;padding:2rem;">
+            <a href="/handy-dev-tools/#/tool/curl-to-code" style="color:#60a5fa;">Open cURL to Code →</a>
+        </p>
+    </noscript>
 </body>
 </html>

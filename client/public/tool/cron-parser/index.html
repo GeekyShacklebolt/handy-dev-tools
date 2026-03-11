@@ -3,140 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cron Parser - HandyDevTools</title>
-    
-    <!-- Meta Tags -->
-    <meta name="description" content="Parse and explain cron expressions - Free online developer tool by HandyDevTools. Fast, secure, and client-side processing.">
-    <meta name="keywords" content="Cron Parser, developer tools, online tools, cron, parser, schedule, expression">
+    <title>Cron Expression Parser &amp; Generator - Cron Job Scheduler | HandyDevTools</title>
+
+    <!-- Primary Meta Tags -->
+    <meta name="description" content="Parse cron expressions to human-readable descriptions. Generate cron syntax with an interactive builder. See next run times. Free online cron parser tool.">
+    <meta name="keywords" content="cron parser, cron expression generator, cron schedule, crontab, cron job scheduler, parse cron expression online">
     <meta name="author" content="HandyDevTools">
     <meta name="robots" content="index, follow">
-    
+
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.shivasaxena.com/handy-dev-tools/tool/cron-parser">
-    <meta property="og:title" content="Cron Parser - HandyDevTools">
-    <meta property="og:description" content="Parse and explain cron expressions">
+    <meta property="og:title" content="Cron Expression Parser &amp; Generator - Cron Job Scheduler | HandyDevTools">
+    <meta property="og:description" content="Parse cron expressions to human-readable descriptions. Generate cron syntax with an interactive builder. See next run times. Free online cron parser tool.">
     <meta property="og:image" content="https://www.shivasaxena.com/handy-dev-tools/og-image.svg">
-    
+    <meta property="og:site_name" content="HandyDevTools">
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://www.shivasaxena.com/handy-dev-tools/tool/cron-parser">
-    <meta property="twitter:title" content="Cron Parser - HandyDevTools">
-    <meta property="twitter:description" content="Parse and explain cron expressions">
+    <meta property="twitter:title" content="Cron Expression Parser &amp; Generator - Cron Job Scheduler | HandyDevTools">
+    <meta property="twitter:description" content="Parse cron expressions to human-readable descriptions. Generate cron syntax with an interactive builder. See next run times. Free online cron parser tool.">
     <meta property="twitter:image" content="https://www.shivasaxena.com/handy-dev-tools/og-image.svg">
-    
+
     <!-- Canonical -->
     <link rel="canonical" href="https://www.shivasaxena.com/handy-dev-tools/tool/cron-parser">
-    
-    <!-- Instant redirect to main app -->
-    <!-- SEO page - redirects to SPA -->
-    
+
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/handy-dev-tools/favicon.ico">
-    
+    <link rel="icon" type="image/svg+xml" href="/handy-dev-tools/favicon.svg">
+
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Cron Parser",
-      "description": "Parse and explain cron expressions",
-      "url": "https://www.shivasaxena.com/handy-dev-tools/tool/cron-parser",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web Browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "isPartOf": {
-        "@type": "WebSite",
-        "name": "HandyDevTools",
-        "url": "https://www.shivasaxena.com/handy-dev-tools/"
-      }
+    [
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Cron Job Parser",
+    "description": "Parse cron expressions to human-readable descriptions. Generate cron syntax with an interactive builder. See next run times. Free online cron parser tool.",
+    "url": "https://www.shivasaxena.com/handy-dev-tools/tool/cron-parser",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "HandyDevTools",
+      "url": "https://www.shivasaxena.com/handy-dev-tools/"
     }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a cron expression?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A cron expression defines a schedule using 5 fields: minute (0-59), hour (0-23), day of month (1-31), month (1-12), and day of week (0-6). For example, '0 9 * * 1' means every Monday at 9:00 AM."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What do the special characters mean?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "* means any value, , separates multiple values, - defines ranges, / defines step values. For example, */5 in the minute field means every 5 minutes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between 5-field and 6-field cron?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard cron uses 5 fields (minute through day-of-week). Some systems add a 6th field for seconds at the beginning."
+        }
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "HandyDevTools",
+        "item": "https://www.shivasaxena.com/handy-dev-tools/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Utilities",
+        "item": "https://www.shivasaxena.com/handy-dev-tools/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Cron Job Parser",
+        "item": "https://www.shivasaxena.com/handy-dev-tools/tool/cron-parser"
+      }
+    ]
+  }
+]
     </script>
-    
+
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            padding: 0;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        .hero {
             background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            padding: 3rem 1.5rem;
             text-align: center;
         }
-        .container {
-            max-width: 400px;
+        .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.75rem; color: white; }
+        .hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 1.5rem; color: white; }
+        .cta-btn {
+            display: inline-block;
+            background: white;
+            color: #1e40af;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.2s;
+        }
+        .cta-btn:hover { transform: translateY(-2px); }
+        .content { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .breadcrumb { font-size: 0.875rem; color: #94a3b8; margin-bottom: 2rem; }
+        .breadcrumb a { color: #60a5fa; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        h2 { font-size: 1.5rem; font-weight: 600; margin: 2rem 0 1rem; color: #f1f5f9; }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0 2rem;
+        }
+        .feature {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-size: 0.95rem;
+        }
+        .feature::before { content: "\2713 "; color: #22c55e; font-weight: bold; }
+        .use-cases { list-style: none; padding: 0; }
+        .use-cases li {
+            background: #1e293b;
+            border-left: 3px solid #3b82f6;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0 0.25rem 0.25rem 0;
+        }
+        .faq-item { margin-bottom: 1.5rem; }
+        .faq-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+        }
+        .faq-item p { color: #cbd5e1; font-size: 0.95rem; }
+        .related {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        .related a {
+            display: block;
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 500;
+            transition: border-color 0.2s;
+        }
+        .related a:hover { border-color: #3b82f6; }
+        .related a span { display: block; font-size: 0.85rem; color: #94a3b8; font-weight: normal; margin-top: 0.25rem; }
+        footer {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            color: #64748b;
+            font-size: 0.875rem;
+            border-top: 1px solid #1e293b;
+            margin-top: 2rem;
+        }
+        footer a { color: #60a5fa; text-decoration: none; }
+        .spinner-wrap {
+            display: none;
+            text-align: center;
             padding: 2rem;
         }
         .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
+            border: 3px solid rgba(255,255,255,0.2);
             border-radius: 50%;
-            border-top: 4px solid white;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+            border-top: 3px solid #3b82f6;
+            width: 32px;
+            height: 32px;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 0.75rem;
         }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        h1 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-        .subtitle {
-            margin: 0 0 1rem 0;
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        p {
-            margin: 0;
-            opacity: 0.7;
-            line-height: 1.5;
-        }
-        .fallback {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 0.5rem;
-            display: none;
-        }
-        .fallback a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .spinner-wrap p { font-size: 0.9rem; color: #94a3b8; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="spinner"></div>
-        <h1>Cron Parser</h1>
-        <div class="subtitle">HandyDevTools</div>
-        <p>Loading your developer tool...</p>
-        
-        <div class="fallback" id="fallback">
-            <p>If you're not redirected automatically:</p>
-            <a href="/handy-dev-tools/#/tool/cron-parser">Open Cron Parser →</a>
+    <section class="hero">
+        <h1>Cron Job Parser</h1>
+        <p>Parse cron expressions to human-readable descriptions. Generate cron syntax with an interactive builder. See next run times. Free online cron parser tool.</p>
+        <a href="/handy-dev-tools/tool/cron-parser" class="cta-btn" id="launch-btn">Use Cron Job Parser Now</a>
+        <div class="spinner-wrap" id="spinner">
+            <div class="spinner"></div>
+            <p>Loading tool...</p>
+        </div>
+    </section>
+
+    <div class="content">
+        <nav class="breadcrumb">
+            <a href="/handy-dev-tools/">HandyDevTools</a> &rsaquo;
+            <a href="/handy-dev-tools/">Utilities</a> &rsaquo;
+            Cron Job Parser
+        </nav>
+
+        <h2>Features</h2>
+        <div class="features-grid">
+            <div class="feature">Parse cron expressions to plain English descriptions</div>
+            <div class="feature">Interactive cron expression builder</div>
+            <div class="feature">Show next 5 scheduled run times</div>
+            <div class="feature">Support for standard 5-field and extended 6-field cron</div>
+            <div class="feature">Common cron expression presets</div>
+        </div>
+
+        <h2>Common Use Cases</h2>
+        <ul class="use-cases">
+            <li>Understanding existing cron schedules</li>
+            <li>Building new cron expressions visually</li>
+            <li>Verifying cron timing before deployment</li>
+        </ul>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>What is a cron expression?</h3>
+            <p>A cron expression defines a schedule using 5 fields: minute (0-59), hour (0-23), day of month (1-31), month (1-12), and day of week (0-6). For example, &#039;0 9 * * 1&#039; means every Monday at 9:00 AM.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What do the special characters mean?</h3>
+            <p>* means any value, , separates multiple values, - defines ranges, / defines step values. For example, */5 in the minute field means every 5 minutes.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What is the difference between 5-field and 6-field cron?</h3>
+            <p>Standard cron uses 5 fields (minute through day-of-week). Some systems add a 6th field for seconds at the beginning.</p>
+        </div>
+
+        <h2>Related Tools</h2>
+        <div class="related">
+            <a href="/handy-dev-tools/tool/uuid-generator/">UUID/ULID Generator<span>Generate UUID v1, v4, v7 and ULID identifiers. Decode existing UUIDs to extract ...</span></a>
+            <a href="/handy-dev-tools/tool/qr-code/">QR Code Tools<span>Generate QR codes from text, URLs, or data. Read and decode QR codes from images...</span></a>
+            <a href="/handy-dev-tools/tool/hash-generator/">Hash Generator<span>Generate MD5, SHA-1, SHA-256, SHA-512, and other hash values from text or files....</span></a>
+            <a href="/handy-dev-tools/tool/color-converter/">Color Converter<span>Convert colors between HEX, RGB, HSL, HSV, and CMYK formats. Color picker, palet...</span></a>
         </div>
     </div>
 
+    <footer>
+        <p><a href="/handy-dev-tools/">HandyDevTools</a> — 40+ free online developer tools. All processing happens client-side in your browser.</p>
+    </footer>
+
     <script>
-        // Immediate redirect
-        sessionStorage.setItem('spa-redirect', '/handy-dev-tools/tool/cron-parser'); window.location.replace('/handy-dev-tools/');
-        
-        // Show fallback after 2 seconds for slow connections
-        setTimeout(function() {
-            document.getElementById('fallback').style.display = 'block';
-        }, 2000);
+        // Redirect to SPA
+        sessionStorage.setItem('spa-redirect', '/handy-dev-tools/tool/cron-parser');
+        window.location.replace('/handy-dev-tools/');
     </script>
+    <noscript>
+        <p style="text-align:center;padding:2rem;">
+            <a href="/handy-dev-tools/#/tool/cron-parser" style="color:#60a5fa;">Open Cron Job Parser →</a>
+        </p>
+    </noscript>
 </body>
 </html>
