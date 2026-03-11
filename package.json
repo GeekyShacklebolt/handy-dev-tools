@@ -63,6 +63,7 @@
     "js-beautify": "^1.15.4",
     "js-yaml": "^4.1.0",
     "jsonpath-plus": "^10.3.0",
+    "jsonrepair": "^3.13.3",
     "jsqr": "^1.4.0",
     "lucide-react": "^0.453.0",
     "marked": "^17.0.4",

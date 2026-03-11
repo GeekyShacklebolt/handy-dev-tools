@@ -4,9 +4,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { FileCode, Check, X, Search, Trash2, ChevronRight, ChevronDown } from "lucide-react";
+import { FileCode, Check, X, Search, Trash2, ChevronRight, ChevronDown, Wand2 } from "lucide-react";
 import ToolLayout, { ToolInput, ToolOutput } from "@/components/ui/tool-layout";
 import { JSONPath } from "jsonpath-plus";
+import { jsonrepair } from "jsonrepair";
 import { useToolState, clearToolState } from "@/hooks/use-tool-state";
 
 export default function JSONFormatter() {
@@ -14,6 +15,8 @@ export default function JSONFormatter() {
     input: "",
     output: "",
     isValid: null as boolean | null,
+    wasRepaired: false,
+    repairErrors: [] as string[],
     indentSize: "2",
     jsonPath: "",
     pathResult: "",
@@ -23,19 +26,55 @@ export default function JSONFormatter() {
     displayMode: "formatted" as "formatted" | "minified"
   });
 
-  const { input, output, isValid, indentSize, jsonPath, pathResult, pathResultParsed, parsedJson, displayMode } = state;
+  const { input, output, isValid, wasRepaired, repairErrors, indentSize, jsonPath, pathResult, pathResultParsed, parsedJson, displayMode } = state;
 
   const updateState = (updates: Partial<typeof state>) => {
     setState({ ...state, ...updates });
   };
 
+  const parseWithRepair = (text: string): { parsed: any; repaired: boolean; errors: string[] } => {
+    // Try native parse first
+    try {
+      return { parsed: JSON.parse(text), repaired: false, errors: [] };
+    } catch (_) {
+      // Native parse failed — try auto-repair
+    }
+
+    try {
+      const repaired = jsonrepair(text);
+      const parsed = JSON.parse(repaired);
+
+      // Diff original vs repaired to find what was fixed
+      const errors: string[] = [];
+      const origLines = text.split('\n');
+      const repLines = repaired.split('\n');
+      const maxLines = Math.max(origLines.length, repLines.length);
+      for (let i = 0; i < maxLines; i++) {
+        if ((origLines[i] || '') !== (repLines[i] || '')) {
+          errors.push(`Line ${i + 1}: auto-fixed`);
+          if (errors.length >= 10) {
+            errors.push('... and more');
+            break;
+          }
+        }
+      }
+      if (errors.length === 0) errors.push('JSON was auto-repaired');
+
+      return { parsed, repaired: true, errors };
+    } catch (repairError) {
+      throw repairError;
+    }
+  };
+
   const formatJSON = () => {
     try {
-      const parsed = JSON.parse(input);
+      const { parsed, repaired, errors } = parseWithRepair(input);
       const formatted = JSON.stringify(parsed, null, parseInt(indentSize));
       updateState({
         output: formatted,
         isValid: true,
+        wasRepaired: repaired,
+        repairErrors: errors,
         parsedJson: parsed,
         displayMode: "formatted"
       });
@@ -43,6 +82,8 @@ export default function JSONFormatter() {
       updateState({
         output: `Error: ${error instanceof Error ? error.message : 'Invalid JSON'}`,
         isValid: false,
+        wasRepaired: false,
+        repairErrors: [],
         parsedJson: null
       });
     }
@@ -50,11 +91,13 @@ export default function JSONFormatter() {
 
   const minifyJSON = () => {
     try {
-      const parsed = JSON.parse(input);
+      const { parsed, repaired, errors } = parseWithRepair(input);
       const minified = JSON.stringify(parsed);
       updateState({
         output: minified,
         isValid: true,
+        wasRepaired: repaired,
+        repairErrors: errors,
         parsedJson: parsed,
         displayMode: "minified"
       });
@@ -62,6 +105,8 @@ export default function JSONFormatter() {
       updateState({
         output: `Error: ${error instanceof Error ? error.message : 'Invalid JSON'}`,
         isValid: false,
+        wasRepaired: false,
+        repairErrors: [],
         parsedJson: null
       });
     }
@@ -69,18 +114,34 @@ export default function JSONFormatter() {
 
   const validateJSON = () => {
     try {
-      const parsed = JSON.parse(input);
+      JSON.parse(input);
       updateState({
         isValid: true,
+        wasRepaired: false,
+        repairErrors: [],
         output: "✓ Valid JSON",
-        parsedJson: parsed
+        parsedJson: JSON.parse(input)
       });
-    } catch (error) {
-      updateState({
-        isValid: false,
-        output: `✗ Invalid JSON: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        parsedJson: null
-      });
+    } catch (_) {
+      try {
+        const repaired = jsonrepair(input);
+        JSON.parse(repaired);
+        updateState({
+          isValid: false,
+          wasRepaired: true,
+          repairErrors: ["JSON is invalid but can be auto-repaired. Click Format to fix."],
+          output: "✗ Invalid JSON (auto-repairable — click Format)",
+          parsedJson: null
+        });
+      } catch (error) {
+        updateState({
+          isValid: false,
+          wasRepaired: false,
+          repairErrors: [],
+          output: `✗ Invalid JSON: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          parsedJson: null
+        });
+      }
     }
   };
 
@@ -148,6 +209,8 @@ export default function JSONFormatter() {
       input: "",
       output: "",
       isValid: null,
+      wasRepaired: false,
+      repairErrors: [],
       jsonPath: "",
       pathResult: "",
       pathResultParsed: null,
@@ -328,6 +391,15 @@ export default function JSONFormatter() {
               disabled={!parsedJson}
             />
           </div>
+
+          {wasRepaired && isValid && (
+            <div className="flex items-start gap-2 p-2.5 bg-amber-500/10 border border-amber-500/30 rounded-md text-xs">
+              <Wand2 className="h-3.5 w-3.5 text-amber-500 mt-0.5 shrink-0" />
+              <div className="text-amber-400">
+                <span className="font-medium">Auto-repaired</span> — Input had errors that were automatically fixed.
+              </div>
+            </div>
+          )}
 
           <div>
             <Label>{jsonPath.trim() ? 'JSONPath Result' : 'Formatted JSON'}</Label>
