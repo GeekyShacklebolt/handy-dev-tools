@@ -40,18 +40,20 @@ const useLocationHook: BaseLocationHook = () => {
   const isProduction = window.location.hostname.includes('github.io') || window.location.hostname.includes('shivasaxena.com');
   const basePath = '/handy-dev-tools';
 
+  const getPathname = () => {
+    const pathname = window.location.pathname;
+    return pathname.startsWith(basePath) ? pathname.substring(basePath.length) || '/' : pathname;
+  };
+
   const [location, setLocation] = React.useState(() => {
     if (isProduction) {
-      // Check if we have a hashbang URL from 404.html redirect
       const hash = window.location.hash;
       if (hash.startsWith('#!')) {
         return hash.substring(2);
       }
-      // For production, remove the base path from the pathname
-      const pathname = window.location.pathname;
-      return pathname.startsWith(basePath) ? pathname.substring(basePath.length) || '/' : pathname;
+      return getPathname();
     }
-    return window.location.pathname;
+    return getPathname();
   });
 
   React.useEffect(() => {
@@ -74,7 +76,7 @@ const useLocationHook: BaseLocationHook = () => {
     } else {
       // For local development, handle popstate events
       const handlePopState = () => {
-        setLocation(window.location.pathname);
+        setLocation(getPathname());
       };
 
       window.addEventListener('popstate', handlePopState);
@@ -87,8 +89,8 @@ const useLocationHook: BaseLocationHook = () => {
       // For GitHub Pages, use hashbang URLs
       window.location.hash = '#!' + to;
     } else {
-      // For local development, use clean URLs
-      window.history.pushState(null, '', to);
+      // For local development, use clean URLs with base path
+      window.history.pushState(null, '', basePath + to);
     }
     setLocation(to);
   }, [isProduction]);
