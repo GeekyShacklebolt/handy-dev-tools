@@ -133,6 +133,35 @@
     margin-bottom: 1em;
   }
 
+  /* JSON editor with error highlights */
+  .json-editor-wrap {
+    font-variant-ligatures: none;
+    tab-size: 2;
+  }
+
+  .json-editor-highlights,
+  .json-editor-textarea {
+    line-height: 1.5;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    word-wrap: normal;
+    word-break: normal;
+  }
+
+  .json-editor-highlights .json-error-line {
+    background: rgba(239, 68, 68, 0.25);
+    border-bottom: 2px wavy rgba(239, 68, 68, 0.7);
+    display: inline;
+  }
+
+  .json-editor-highlights .json-key { color: #e2e8f0; }
+  .json-editor-highlights .json-str { color: #10b981; }
+  .json-editor-highlights .json-num { color: #f59e0b; }
+  .json-editor-highlights .json-kw { color: #8b5cf6; }
+
+  .json-editor-textarea::placeholder {
+    color: hsl(var(--muted-foreground));
+  }
+
   /* Hide BMC widget on mobile */
   @media (max-width: 768px) {
     [data-name="BMC-Widget"],
