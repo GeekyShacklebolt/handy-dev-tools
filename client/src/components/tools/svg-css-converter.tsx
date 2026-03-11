@@ -48,7 +48,7 @@ export default function SVGCSSConverter() {
           break;
 
         case "base64":
-          const base64SVG = btoa(svgCode);
+          const base64SVG = btoa(unescape(encodeURIComponent(svgCode)));
           cssOutput = `background-image: url("data:image/svg+xml;base64,${base64SVG}");`;
           break;
 

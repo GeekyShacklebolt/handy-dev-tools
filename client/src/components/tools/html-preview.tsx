@@ -151,7 +151,7 @@ export default function HTMLPreview() {
                   srcDoc={wrapHTMLWithLightTheme(input)}
                   className="w-full h-96 rounded-md"
                   title="HTML Preview"
-                  sandbox="allow-same-origin"
+                  sandbox="allow-scripts"
                 />
               </div>
             </div>

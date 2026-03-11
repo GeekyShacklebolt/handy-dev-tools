@@ -1,75 +1,81 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Database } from "lucide-react";
 import ToolLayout, { ToolInput, ToolOutput } from "@/components/ui/tool-layout";
 import { useToolState } from "@/hooks/use-tool-state";
 
+let sqlFormatterLib: any = null;
+
+async function loadSqlFormatter() {
+  if (!sqlFormatterLib) {
+    sqlFormatterLib = await import('sql-formatter');
+  }
+  return sqlFormatterLib;
+}
+
 export default function SQLFormatter() {
   const [state, setState] = useToolState("sql-formatter", {
     input: "",
-    output: ""
+    output: "",
+    dialect: "sql",
+    error: ""
   });
 
-  const { input, output } = state;
+  const { input, output, dialect, error } = state;
 
   const updateState = (updates: Partial<typeof state>) => {
     setState({ ...state, ...updates });
   };
 
-  const formatSQL = () => {
+  const formatSQL = async () => {
     if (!input.trim()) {
-      updateState({ output: "" });
+      updateState({ output: "", error: "" });
       return;
     }
 
-    // Simple SQL formatting - in a real app you'd use a proper SQL formatter library
-    let formatted = input
-      // Convert to uppercase for keywords
-      .replace(/\b(select|from|where|and|or|order by|group by|having|insert|update|delete|create|drop|alter|join|inner join|left join|right join|full join|union|distinct|as|case|when|then|else|end|if|exists|not|in|like|between|is|null|count|sum|avg|max|min|asc|desc)\b/gi, (match) => match.toUpperCase())
-      // Add line breaks after major clauses
-      .replace(/\s+(FROM|WHERE|AND|OR|ORDER BY|GROUP BY|HAVING|UNION|JOIN|INNER JOIN|LEFT JOIN|RIGHT JOIN|FULL JOIN)\s+/gi, '\n$1 ')
-      // Add line breaks after SELECT fields
-      .replace(/,\s*(?![^()]*\))/g, ',\n  ')
-      // Indent subqueries and lists
-      .replace(/\n/g, '\n  ')
-      // Fix over-indentation
-      .replace(/^\s\s/, '')
-      // Clean up extra spaces
-      .replace(/\s+/g, ' ')
-      .replace(/\(\s+/g, '(')
-      .replace(/\s+\)/g, ')')
-      .trim();
-
-    updateState({ output: formatted });
+    try {
+      const { format } = await loadSqlFormatter();
+      const formatted = format(input, {
+        language: dialect as any,
+        tabWidth: 2,
+        keywordCase: 'upper',
+        linesBetweenQueries: 2,
+      });
+      updateState({ output: formatted, error: "" });
+    } catch (err) {
+      updateState({
+        error: err instanceof Error ? err.message : "Formatting failed",
+        output: ""
+      });
+    }
   };
 
   const minifySQL = () => {
     if (!input.trim()) {
-      updateState({ output: "" });
+      updateState({ output: "", error: "" });
       return;
     }
 
     const minified = input
+      .replace(/--.*$/gm, '')
+      .replace(/\/\*[\s\S]*?\*\//g, '')
       .replace(/\s+/g, ' ')
       .replace(/\(\s+/g, '(')
       .replace(/\s+\)/g, ')')
-      .replace(/,\s+/g, ',')
+      .replace(/,\s+/g, ', ')
       .trim();
 
-    updateState({ output: minified });
+    updateState({ output: minified, error: "" });
   };
 
   const clearAll = () => {
-    updateState({
-      input: "",
-      output: ""
-    });
+    updateState({ input: "", output: "", error: "" });
   };
 
   const loadExample = () => {
-    const example = `select u.id,u.name,u.email,p.title,p.content,p.created_at from users u inner join posts p on u.id=p.user_id where u.active=1 and p.published=1 order by p.created_at desc`;
+    const example = `WITH active_users AS (SELECT u.id, u.name, u.email, COUNT(o.id) as order_count FROM users u LEFT JOIN orders o ON u.id = o.user_id WHERE u.active = 1 AND u.created_at >= '2024-01-01' GROUP BY u.id, u.name, u.email HAVING COUNT(o.id) > 5) SELECT au.name, au.email, au.order_count, CASE WHEN au.order_count > 20 THEN 'VIP' WHEN au.order_count > 10 THEN 'Regular' ELSE 'New' END as customer_tier, p.name as last_product FROM active_users au INNER JOIN orders o ON au.id = o.user_id INNER JOIN products p ON o.product_id = p.id WHERE o.id = (SELECT MAX(o2.id) FROM orders o2 WHERE o2.user_id = au.id) ORDER BY au.order_count DESC LIMIT 100`;
     updateState({ input: example });
   };
 
@@ -77,17 +83,35 @@ export default function SQLFormatter() {
     <ToolLayout
       title="SQL Formatter"
       description="Format and beautify SQL queries"
-      icon={<Database className="h-6 w-6 text-blue-500" />}
+      icon={<Database className="h-5 w-5 text-blue-500" />}
       outputValue={output}
       infoContent={
         <p>
-          SQL formatting improves query readability by adding proper indentation, line breaks, and spacing.
-          It helps with debugging and maintaining complex SQL queries by making the structure more apparent.
+          Formats SQL with proper indentation, keyword casing, and line breaks.
+          Supports Standard SQL, MySQL, PostgreSQL, T-SQL, and more.
         </p>
       }
     >
       <ToolInput title="Input">
-        <div className="space-y-4">
+        <div className="space-y-3">
+          <div>
+            <Label htmlFor="sql-dialect">SQL Dialect</Label>
+            <Select value={dialect} onValueChange={(value) => updateState({ dialect: value })}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="sql">Standard SQL</SelectItem>
+                <SelectItem value="mysql">MySQL</SelectItem>
+                <SelectItem value="postgresql">PostgreSQL</SelectItem>
+                <SelectItem value="tsql">T-SQL (SQL Server)</SelectItem>
+                <SelectItem value="mariadb">MariaDB</SelectItem>
+                <SelectItem value="plsql">PL/SQL (Oracle)</SelectItem>
+                <SelectItem value="sqlite">SQLite</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
           <div>
             <Label htmlFor="sql-input">SQL Query</Label>
             <Textarea
@@ -100,8 +124,8 @@ export default function SQLFormatter() {
           </div>
 
           <div className="flex flex-wrap gap-2">
-            <Button onClick={formatSQL}>Format SQL</Button>
-            <Button variant="outline" onClick={minifySQL}>Minify SQL</Button>
+            <Button onClick={formatSQL}>Format</Button>
+            <Button variant="outline" onClick={minifySQL}>Minify</Button>
             <Button variant="outline" onClick={loadExample}>Load Example</Button>
             <Button variant="outline" onClick={clearAll}>Clear</Button>
           </div>
@@ -109,10 +133,15 @@ export default function SQLFormatter() {
       </ToolInput>
 
       <ToolOutput title="Output" value={output}>
-        <div className="space-y-4">
+        <div className="space-y-3">
+          {error && (
+            <div className="p-2 bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-200 rounded-md text-xs">
+              {error}
+            </div>
+          )}
           <div>
             <Label>Formatted SQL</Label>
-            <div className="p-3 bg-muted rounded-md font-mono text-sm mt-1 whitespace-pre-wrap max-h-96 overflow-y-auto">
+            <div className="p-2 bg-muted rounded-md font-mono text-xs mt-1 whitespace-pre-wrap max-h-96 overflow-y-auto">
               {output || "No output"}
             </div>
           </div>

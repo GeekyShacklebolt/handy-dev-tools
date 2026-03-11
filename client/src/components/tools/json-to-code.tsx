@@ -69,40 +69,50 @@ export default function JSONToCode() {
   };
 
   const generateTypeScriptInterface = (data: any, name: string): string => {
-    const generateInterface = (obj: any, interfaceName: string): string => {
+    const interfaces: string[] = [];
+
+    const getType = (value: any, key: string, parentName: string): string => {
+      if (value === null) return "null";
+      if (typeof value === "string") return "string";
+      if (typeof value === "number") return "number";
+      if (typeof value === "boolean") return "boolean";
+      if (Array.isArray(value)) {
+        if (value.length === 0) return "any[]";
+        const itemType = getType(value[0], key, parentName);
+        return `${itemType}[]`;
+      }
+      if (typeof value === "object") {
+        const nestedName = key.charAt(0).toUpperCase() + key.slice(1);
+        generateInterface(value, nestedName);
+        return nestedName;
+      }
+      return "any";
+    };
+
+    const generateInterface = (obj: any, interfaceName: string) => {
       if (Array.isArray(obj)) {
-        return generateInterface(obj[0], interfaceName);
+        if (obj.length > 0 && typeof obj[0] === "object" && !Array.isArray(obj[0])) {
+          generateInterface(obj[0], interfaceName);
+        }
+        return;
       }
 
       let result = `interface ${interfaceName} {\n`;
-
       Object.entries(obj).forEach(([key, value]) => {
-        const type = getTypeScriptType(value);
+        const type = getType(value, key, interfaceName);
         result += `  ${key}: ${type};\n`;
       });
-
       result += "}";
-      return result;
+      interfaces.push(result);
     };
 
-    return generateInterface(data, name);
-  };
-
-  const getTypeScriptType = (value: any): string => {
-    if (value === null) return "null";
-    if (typeof value === "string") return "string";
-    if (typeof value === "number") return "number";
-    if (typeof value === "boolean") return "boolean";
-    if (Array.isArray(value)) {
-      if (value.length === 0) return "any[]";
-      return `${getTypeScriptType(value[0])}[]`;
-    }
-    if (typeof value === "object") return "object";
-    return "any";
+    generateInterface(data, name);
+    return interfaces.join("\n\n");
   };
 
   const generateJavaScriptClass = (data: any, name: string): string => {
-    const properties = Object.keys(data).map(key => `    this.${key} = data.${key};`).join('\n');
+    const obj = Array.isArray(data) ? (data[0] || {}) : data;
+    const properties = Object.keys(obj).map(key => `    this.${key} = data.${key};`).join('\n');
 
     return `class ${name} {
   constructor(data) {
@@ -120,9 +130,22 @@ ${properties}
   };
 
   const generatePythonClass = (data: any, name: string): string => {
-    const properties = Object.keys(data).map(key => `        self.${key} = data.get('${key}')`).join('\n');
+    const classes: string[] = [];
 
-    return `class ${name}:
+    const generateClass = (obj: any, clsName: string) => {
+      if (Array.isArray(obj)) {
+        if (obj.length > 0 && typeof obj[0] === "object") generateClass(obj[0], clsName);
+        return;
+      }
+      const properties = Object.keys(obj).map(key => `        self.${key} = data.get('${key}')`).join('\n');
+      Object.entries(obj).forEach(([key, value]) => {
+        if (value && typeof value === "object" && !Array.isArray(value)) {
+          generateClass(value, key.charAt(0).toUpperCase() + key.slice(1));
+        } else if (Array.isArray(value) && value.length > 0 && typeof value[0] === "object") {
+          generateClass(value[0], key.charAt(0).toUpperCase() + key.slice(1));
+        }
+      });
+      classes.push(`class ${clsName}:
     def __init__(self, data):
 ${properties}
 
@@ -133,92 +156,149 @@ ${properties}
 
     def to_json(self):
         import json
-        return json.dumps(self.__dict__)`;
+        return json.dumps(self.__dict__)`);
+    };
+
+    generateClass(data, name);
+    return classes.join('\n\n');
   };
 
   const generateJavaClass = (data: any, name: string): string => {
-    const fields = Object.entries(data).map(([key, value]) => {
-      const type = getJavaType(value);
-      return `    private ${type} ${key};`;
-    }).join('\n');
+    const classes: string[] = [];
 
-    const getters = Object.entries(data).map(([key, value]) => {
-      const type = getJavaType(value);
-      const capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
-      return `    public ${type} get${capitalizedKey}() {
-        return ${key};
-    }`;
-    }).join('\n\n');
+    const getType = (value: any, key: string): string => {
+      if (value === null) return "Object";
+      if (typeof value === "string") return "String";
+      if (typeof value === "number") return Number.isInteger(value) ? "int" : "double";
+      if (typeof value === "boolean") return "boolean";
+      if (Array.isArray(value)) {
+        if (value.length === 0) return "List<Object>";
+        const itemType = getType(value[0], key);
+        return `List<${itemType === "int" ? "Integer" : itemType === "double" ? "Double" : itemType === "boolean" ? "Boolean" : itemType}>`;
+      }
+      if (typeof value === "object") {
+        const nestedName = key.charAt(0).toUpperCase() + key.slice(1);
+        generateJavaClassInner(value, nestedName);
+        return nestedName;
+      }
+      return "Object";
+    };
 
-    const setters = Object.entries(data).map(([key, value]) => {
-      const type = getJavaType(value);
-      const capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
-      return `    public void set${capitalizedKey}(${type} ${key}) {
-        this.${key} = ${key};
-    }`;
-    }).join('\n\n');
+    const generateJavaClassInner = (obj: any, clsName: string) => {
+      if (Array.isArray(obj)) {
+        if (obj.length > 0 && typeof obj[0] === "object") generateJavaClassInner(obj[0], clsName);
+        return;
+      }
+      const fields = Object.entries(obj).map(([key, value]) => {
+        return `    private ${getType(value, key)} ${key};`;
+      }).join('\n');
 
-    return `public class ${name} {
+      const getters = Object.entries(obj).map(([key, value]) => {
+        const type = getType(value, key);
+        const cap = key.charAt(0).toUpperCase() + key.slice(1);
+        return `    public ${type} get${cap}() { return ${key}; }`;
+      }).join('\n');
+
+      const setters = Object.entries(obj).map(([key, value]) => {
+        const type = getType(value, key);
+        const cap = key.charAt(0).toUpperCase() + key.slice(1);
+        return `    public void set${cap}(${type} ${key}) { this.${key} = ${key}; }`;
+      }).join('\n');
+
+      classes.push(`public class ${clsName} {
 ${fields}
 
-    public ${name}() {}
+    public ${clsName}() {}
 
 ${getters}
 
 ${setters}
-}`;
-  };
+}`);
+    };
 
-  const getJavaType = (value: any): string => {
-    if (typeof value === "string") return "String";
-    if (typeof value === "number") return Number.isInteger(value) ? "int" : "double";
-    if (typeof value === "boolean") return "boolean";
-    if (Array.isArray(value)) return "List<Object>";
-    if (typeof value === "object") return "Object";
-    return "Object";
+    generateJavaClassInner(data, name);
+    return classes.join('\n\n');
   };
 
   const generateCSharpClass = (data: any, name: string): string => {
-    const properties = Object.entries(data).map(([key, value]) => {
-      const type = getCSharpType(value);
-      const capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
-      return `    public ${type} ${capitalizedKey} { get; set; }`;
-    }).join('\n');
+    const classes: string[] = [];
 
-    return `public class ${name}
+    const getType = (value: any, key: string): string => {
+      if (value === null) return "object";
+      if (typeof value === "string") return "string";
+      if (typeof value === "number") return Number.isInteger(value) ? "int" : "double";
+      if (typeof value === "boolean") return "bool";
+      if (Array.isArray(value)) {
+        if (value.length === 0) return "List<object>";
+        return `List<${getType(value[0], key)}>`;
+      }
+      if (typeof value === "object") {
+        const nestedName = key.charAt(0).toUpperCase() + key.slice(1);
+        generateCSharpInner(value, nestedName);
+        return nestedName;
+      }
+      return "object";
+    };
+
+    const generateCSharpInner = (obj: any, clsName: string) => {
+      if (Array.isArray(obj)) {
+        if (obj.length > 0 && typeof obj[0] === "object") generateCSharpInner(obj[0], clsName);
+        return;
+      }
+      const properties = Object.entries(obj).map(([key, value]) => {
+        const type = getType(value, key);
+        const cap = key.charAt(0).toUpperCase() + key.slice(1);
+        return `    public ${type} ${cap} { get; set; }`;
+      }).join('\n');
+
+      classes.push(`public class ${clsName}
 {
 ${properties}
-}`;
-  };
+}`);
+    };
 
-  const getCSharpType = (value: any): string => {
-    if (typeof value === "string") return "string";
-    if (typeof value === "number") return Number.isInteger(value) ? "int" : "double";
-    if (typeof value === "boolean") return "bool";
-    if (Array.isArray(value)) return "List<object>";
-    if (typeof value === "object") return "object";
-    return "object";
+    generateCSharpInner(data, name);
+    return classes.join('\n\n');
   };
 
   const generateGoStruct = (data: any, name: string): string => {
-    const fields = Object.entries(data).map(([key, value]) => {
-      const type = getGoType(value);
-      const capitalizedKey = key.charAt(0).toUpperCase() + key.slice(1);
-      return `    ${capitalizedKey} ${type} \`json:"${key}"\``;
-    }).join('\n');
+    const structs: string[] = [];
 
-    return `type ${name} struct {
+    const getType = (value: any, key: string): string => {
+      if (value === null) return "interface{}";
+      if (typeof value === "string") return "string";
+      if (typeof value === "number") return Number.isInteger(value) ? "int" : "float64";
+      if (typeof value === "boolean") return "bool";
+      if (Array.isArray(value)) {
+        if (value.length === 0) return "[]interface{}";
+        return `[]${getType(value[0], key)}`;
+      }
+      if (typeof value === "object") {
+        const nestedName = key.charAt(0).toUpperCase() + key.slice(1);
+        generateGoInner(value, nestedName);
+        return nestedName;
+      }
+      return "interface{}";
+    };
+
+    const generateGoInner = (obj: any, structName: string) => {
+      if (Array.isArray(obj)) {
+        if (obj.length > 0 && typeof obj[0] === "object") generateGoInner(obj[0], structName);
+        return;
+      }
+      const fields = Object.entries(obj).map(([key, value]) => {
+        const type = getType(value, key);
+        const cap = key.charAt(0).toUpperCase() + key.slice(1);
+        return `    ${cap} ${type} \`json:"${key}"\``;
+      }).join('\n');
+
+      structs.push(`type ${structName} struct {
 ${fields}
-}`;
-  };
+}`);
+    };
 
-  const getGoType = (value: any): string => {
-    if (typeof value === "string") return "string";
-    if (typeof value === "number") return Number.isInteger(value) ? "int" : "float64";
-    if (typeof value === "boolean") return "bool";
-    if (Array.isArray(value)) return "[]interface{}";
-    if (typeof value === "object") return "interface{}";
-    return "interface{}";
+    generateGoInner(data, name);
+    return structs.join('\n\n');
   };
 
   const clearAll = () => {
