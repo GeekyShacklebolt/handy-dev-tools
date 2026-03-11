@@ -99,13 +99,20 @@ export default function JSONFormatter() {
   };
 
   const parseWithRepair = (text: string): { parsed: any; repaired: boolean } => {
+    let nativeError: Error | null = null;
     try {
       return { parsed: JSON.parse(text), repaired: false };
-    } catch (nativeError) {
+    } catch (e) {
+      nativeError = e as Error;
       if (!autoRepair) throw nativeError;
     }
-    const repaired = jsonrepair(text);
-    return { parsed: JSON.parse(repaired), repaired: true };
+    try {
+      const repaired = jsonrepair(text);
+      return { parsed: JSON.parse(repaired), repaired: true };
+    } catch (_) {
+      // Repair also failed — throw the original native error (clearer message)
+      throw nativeError;
+    }
   };
 
   const formatJSON = () => {
