@@ -101,12 +101,6 @@ export default function Base64Image() {
       description="Convert images to Base64 and vice versa"
       icon={<Image className="h-6 w-6 text-blue-500" />}
       outputValue={base64Output}
-      infoContent={
-        <p>
-          Base64 image encoding is used to embed images directly in HTML, CSS, or JSON data.
-          This is useful for reducing HTTP requests or embedding images in data URLs.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

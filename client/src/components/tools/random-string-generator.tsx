@@ -113,12 +113,6 @@ export default function RandomStringGenerator() {
       description="Generate random strings with options"
       icon={<Shuffle className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          Random string generation is useful for creating passwords, API keys, tokens, and test data.
-          You can customize the character set, length, and quantity to meet your specific requirements.
-        </p>
-      }
     >
       <ToolInput title="Settings">
         <div className="space-y-4">

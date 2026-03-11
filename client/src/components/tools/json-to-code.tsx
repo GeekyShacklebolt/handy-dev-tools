@@ -332,12 +332,6 @@ ${fields}
       description="Generate code from JSON data"
       icon={<Code className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          JSON to code generation creates data structures (classes, interfaces, structs) from JSON data.
-          This is useful for quickly creating typed data models in various programming languages based on API responses or data schemas.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

@@ -73,12 +73,6 @@ export default function HashGenerator() {
       description="Generate various hash types"
       icon={<Lock className="h-6 w-6 text-blue-500" />}
       outputValue={formatOutput()}
-      infoContent={
-        <p>
-          Hash functions create a fixed-size string from input data. They're used for data integrity verification,
-          password storage, and digital signatures. Different algorithms provide different levels of security and performance.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

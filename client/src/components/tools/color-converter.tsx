@@ -111,13 +111,6 @@ export default function ColorConverter() {
       description="Convert between color formats"
       icon={<Palette className="h-6 w-6 text-blue-500" />}
       outputValue={formatOutput()}
-      infoContent={
-        <p>
-          Color conversion transforms colors between different formats: HEX (web colors),
-          RGB (red, green, blue), and HSL (hue, saturation, lightness). Each format has specific use cases
-          in web design, graphics, and programming.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-6">

@@ -275,18 +275,6 @@ export default function JSONFormatter() {
       description="Format, beautify and minify JSON data"
       icon={<FileCode className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <div>
-          <p className="mb-3">
-            JSON (JavaScript Object Notation) is a lightweight data-interchange format.
-            This tool helps you format and beautify JSON data for better readability and debugging.
-          </p>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
-            <strong>JSONPath Search:</strong> Use JSONPath expressions to query and extract specific data from your JSON.
-            Available after formatting your JSON.
-          </p>
-        </div>
-      }
     >
       <ToolInput
         title="Input"

@@ -124,12 +124,6 @@ export default function CodeBeautifier() {
       description="Beautify or minify code (HTML, CSS, JS, etc.)"
       icon={<Wand2 className="h-5 w-5 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          Code beautification formats code with proper indentation and spacing for better readability.
-          Minification removes unnecessary whitespace and formatting to reduce file size.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-3">

@@ -127,13 +127,6 @@ grape`;
       description="Sort lines and remove duplicates"
       icon={<ArrowUpDown className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          Line sorting and deduplication is useful for cleaning up lists, removing duplicates from data files,
-          and organizing text data. You can combine sorting and deduplication with various options for case sensitivity
-          and empty line handling.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

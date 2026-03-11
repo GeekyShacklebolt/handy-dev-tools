@@ -68,12 +68,6 @@ export default function LoremIpsum() {
       description="Generate placeholder text"
       icon={<FileText className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          Lorem Ipsum is placeholder text commonly used in the printing and typesetting industry.
-          It's used to demonstrate the visual form of a document or a typeface without relying on meaningful content.
-        </p>
-      }
     >
       <ToolInput title="Settings">
         <div className="space-y-4">

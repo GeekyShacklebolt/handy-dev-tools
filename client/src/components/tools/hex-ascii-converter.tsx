@@ -82,12 +82,6 @@ export default function HexAsciiConverter() {
       description="Convert between hexadecimal and ASCII"
       icon={<ArrowRightLeft className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          Hexadecimal (hex) to ASCII conversion is useful for decoding binary data, debugging network protocols,
-          and working with low-level programming. Each pair of hex digits represents one ASCII character.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

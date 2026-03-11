@@ -46,12 +46,6 @@ export default function HTMLEntityEncoder() {
       description="Encode and decode HTML entities"
       icon={<Code className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          HTML entities are used to display reserved characters in HTML. For example, &lt; represents the less-than sign (&lt;)
-          and &amp; represents the ampersand (&amp;). This tool converts between regular text and HTML entities.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

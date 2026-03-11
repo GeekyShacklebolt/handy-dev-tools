@@ -210,17 +210,6 @@ export default function CronParser() {
       description="Parse and explain cron expressions"
       icon={<Clock className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <div>
-          <p className="mb-4">
-            Cron expressions are used to schedule tasks in Unix-like systems. The format is:
-          </p>
-          <div className="font-mono text-sm bg-muted p-2 rounded mb-4">
-            minute hour day-of-month month day-of-week
-          </div>
-          <p>Each field can contain specific values, ranges, lists, or special characters like * and /.</p>
-        </div>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

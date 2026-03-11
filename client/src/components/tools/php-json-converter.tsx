@@ -286,12 +286,6 @@ $data = [
       description="Convert between PHP arrays and JSON"
       icon={<ArrowRightLeft className="h-5 w-5 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          Converts PHP arrays (both <code>array()</code> and <code>[]</code> syntax) to JSON and vice versa.
-          Handles nested arrays, associative arrays, strings, numbers, booleans, and null.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-3">

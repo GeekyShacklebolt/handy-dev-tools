@@ -85,12 +85,6 @@ export default function SQLFormatter() {
       description="Format and beautify SQL queries"
       icon={<Database className="h-5 w-5 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          Formats SQL with proper indentation, keyword casing, and line breaks.
-          Supports Standard SQL, MySQL, PostgreSQL, T-SQL, and more.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-3">

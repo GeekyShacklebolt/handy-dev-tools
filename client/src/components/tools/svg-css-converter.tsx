@@ -108,13 +108,6 @@ mask-size: contain;`;
       description="Convert SVG to CSS"
       icon={<Palette className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          SVG to CSS conversion allows you to embed SVG graphics directly in CSS using data URIs,
-          base64 encoding, or as CSS masks and clip-paths. This eliminates the need for separate image files
-          and can improve loading performance.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

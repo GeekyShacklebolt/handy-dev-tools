@@ -133,22 +133,6 @@ export default function JWTDebugger() {
       description="Debug and inspect JWT tokens"
       icon={<Key className="h-6 w-6 text-blue-500" />}
       outputValue={payload}
-      infoContent={
-        <div>
-          <p className="mb-2">
-            JSON Web Token (JWT) is a compact, URL-safe means of representing claims to be transferred between two parties.
-            The claims in a JWT are encoded as a JSON object that is digitally signed using JSON Web Signature (JWS).
-          </p>
-          <div className="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900/20 rounded-md">
-            <div className="flex items-center">
-              <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 mr-2" />
-              <span className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
-                Warning: This tool only decodes JWTs. It does not verify signatures.
-              </span>
-            </div>
-          </div>
-        </div>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

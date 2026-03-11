@@ -94,12 +94,6 @@ That's all folks!`;
       description="Preview Markdown with live rendering"
       icon={<FileText className="h-5 w-5 text-blue-500" />}
       outputValue={input}
-      infoContent={
-        <p>
-          Supports GitHub Flavored Markdown (GFM) including tables, task lists, and fenced code blocks.
-          Content is sanitized to prevent XSS attacks.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-3">

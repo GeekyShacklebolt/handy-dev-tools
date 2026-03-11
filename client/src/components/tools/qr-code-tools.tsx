@@ -146,12 +146,6 @@ export default function QRCodeTools() {
       description="Generate and read QR codes"
       icon={<QrCode className="h-6 w-6 text-blue-500" />}
       outputValue={qrCodeUrl || decodedText}
-      infoContent={
-        <p>
-          QR (Quick Response) codes are two-dimensional barcodes that can store various types of information.
-          They can be scanned by smartphones and other devices to quickly access the encoded data.
-        </p>
-      }
     >
       <ToolInput title="Generator & Reader">
         <div className="space-y-6">

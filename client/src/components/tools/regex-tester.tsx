@@ -105,12 +105,6 @@ export default function RegexTester() {
       description="Test regular expressions with highlighting"
       icon={<Search className="h-6 w-6 text-blue-500" />}
       outputValue={matches.join('\n')}
-      infoContent={
-        <p>
-          Regular expressions are patterns used to match character combinations in strings.
-          This tool allows you to test regex patterns against sample text and see the matches highlighted.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">

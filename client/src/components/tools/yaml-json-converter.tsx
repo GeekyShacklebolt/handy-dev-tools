@@ -78,13 +78,6 @@ hobbies:
       description="Convert between YAML and JSON formats"
       icon={<ArrowRightLeft className="h-6 w-6 text-blue-500" />}
       outputValue={output}
-      infoContent={
-        <p>
-          YAML (YAML Ain't Markup Language) is a human-readable data serialization standard.
-          This tool converts between YAML and JSON formats, making it easy to work with configuration
-          files and data interchange formats.
-        </p>
-      }
     >
       <ToolInput title="Input">
         <div className="space-y-4">
