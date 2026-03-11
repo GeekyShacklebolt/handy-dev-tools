@@ -6,7 +6,7 @@ import { Database } from "lucide-react";
 import ToolLayout, { ToolInput, ToolOutput } from "@/components/ui/tool-layout";
 import { useToolState } from "@/hooks/use-tool-state";
 
-let sqlFormatterLib: any = null;
+let sqlFormatterLib: typeof import('sql-formatter') | null = null;
 
 async function loadSqlFormatter() {
   if (!sqlFormatterLib) {

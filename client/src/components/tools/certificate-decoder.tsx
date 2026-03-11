@@ -5,7 +5,7 @@ import { Shield } from "lucide-react";
 import ToolLayout, { ToolInput, ToolOutput } from "@/components/ui/tool-layout";
 import { useToolState } from "@/hooks/use-tool-state";
 
-let x509Module: any = null;
+let x509Module: typeof import('@peculiar/x509') | null = null;
 
 async function loadX509() {
   if (!x509Module) {

@@ -7,7 +7,7 @@ import { Wand2 } from "lucide-react";
 import ToolLayout, { ToolInput, ToolOutput } from "@/components/ui/tool-layout";
 import { useToolState } from "@/hooks/use-tool-state";
 
-let beautifyLib: any = null;
+let beautifyLib: typeof import('js-beautify') | null = null;
 
 async function loadBeautify() {
   if (!beautifyLib) {

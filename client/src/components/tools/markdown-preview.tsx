@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -28,25 +28,20 @@ export default function MarkdownPreview() {
 
   const { input } = state;
 
-  const updateState = useCallback(async (updates: Partial<typeof state>) => {
-    const newState = { ...state, ...updates };
-    setState(newState);
-
-    const md = updates.input ?? state.input;
-    if (!md) {
-      setHtmlOutput("");
-      return;
-    }
-
+  const renderMarkdown = useCallback(async (md: string) => {
+    if (!md) { setHtmlOutput(""); return; }
     try {
       const { marked, DOMPurify } = await loadMarkdownLibs();
       const rawHtml = await marked.parse(md);
-      const sanitized = DOMPurify.sanitize(rawHtml);
-      setHtmlOutput(sanitized);
+      setHtmlOutput(DOMPurify.sanitize(rawHtml));
     } catch {
       setHtmlOutput("<p>Error rendering markdown</p>");
     }
-  }, [state, setState]);
+  }, []);
+
+  useEffect(() => {
+    renderMarkdown(input);
+  }, [input, renderMarkdown]);
 
   const clearAll = () => {
     setState({ input: "" });
@@ -90,7 +85,7 @@ function hello() {
 ---
 
 That's all folks!`;
-    updateState({ input: example });
+    setState({ input: example });
   };
 
   return (
@@ -114,7 +109,7 @@ That's all folks!`;
               id="markdown-input"
               placeholder="Enter Markdown content"
               value={input}
-              onChange={(e) => updateState({ input: e.target.value })}
+              onChange={(e) => setState({ input: e.target.value })}
               className="tool-textarea"
             />
           </div>
