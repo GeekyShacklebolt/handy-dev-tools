@@ -10,12 +10,7 @@
     <meta name="title" content="HandyDevTools - 30+ Essential Developer Tools | Free Online Tools" />
     <meta name="description"
         content="Free online developer tools including JSON formatter, Base64 encoder, JWT debugger, URL encoder, Unix time converter, and 35+ more essential utilities. All client-side, fast & secure." />
-    <meta name="keywords"
-        content="developer tools, json formatter, base64 encoder, jwt debugger, url encoder, unix time converter, code beautifier, sql formatter, regex tester, free online tools, web development tools" />
-    <meta name="author" content="HandyDevTools" />
     <meta name="robots" content="index, follow" />
-    <meta name="language" content="English" />
-    <meta name="revisit-after" content="7 days" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -24,153 +19,28 @@
     <meta property="og:description"
         content="Free online developer tools including JSON formatter, Base64 encoder, JWT debugger, URL encoder, Unix time converter, and 35+ more essential utilities." />
     <meta property="og:image" content="https://www.shivasaxena.com/handy-dev-tools/og-image.svg" />
-    <meta property="og:site_name" content="HandyDevTools" />
-    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://www.shivasaxena.com/handy-dev-tools/" />
     <meta property="twitter:title" content="HandyDevTools - 30+ Essential Developer Tools" />
-    <meta property="twitter:description"
-        content="Free online developer tools including JSON formatter, Base64 encoder, JWT debugger, URL encoder, Unix time converter, and 35+ more essential utilities." />
     <meta property="twitter:image" content="https://www.shivasaxena.com/handy-dev-tools/og-image.svg" />
 
-    <!-- Additional SEO Meta Tags -->
     <meta name="theme-color" content="#3b82f6" />
-    <meta name="msapplication-TileColor" content="#3b82f6" />
-    <link rel="canonical" href="https://www.shivasaxena.com/handy-dev-tools/" />
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/handy-dev-tools/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/handy-dev-tools/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/handy-dev-tools/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/handy-dev-tools/favicon-16x16.png" />
+    <link rel="icon" type="image/svg+xml" href="/handy-dev-tools/favicon.svg" />
     <link rel="manifest" href="/handy-dev-tools/site.webmanifest" />
 
-    <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "HandyDevTools",
-      "description": "Free online developer tools including JSON formatter, Base64 encoder, JWT debugger, URL encoder, Unix time converter, and 35+ more essential utilities.",
-      "url": "https://www.shivasaxena.com/handy-dev-tools/",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": "Web Browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "author": {
-        "@type": "Organization",
-        "name": "HandyDevTools"
-      },
-      "featureList": [
-        "JSON Formatter & Validator",
-        "Base64 Encoder/Decoder",
-        "JWT Debugger",
-        "URL Encoder/Decoder",
-        "Unix Time Converter",
-        "SQL Formatter",
-        "Regex Tester",
-        "Code Beautifier"
-      ]
-    }
-    </script>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SPC9BX5J3E"></script>
+    <!-- SPA redirect: store the path and load the app -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-SPC9BX5J3E');
+        // GitHub Pages SPA trick: this 404.html runs for any route that doesn't
+        // have a physical file. We store the path in sessionStorage and redirect
+        // to the root, where index.html picks it up and routes client-side.
+        sessionStorage.setItem('spa-redirect', window.location.pathname + window.location.search);
+        window.location.replace('/handy-dev-tools/');
     </script>
-
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-        }
-
-        .loading-container {
-            max-width: 400px;
-            padding: 2rem;
-        }
-
-        .spinner {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 4px solid white;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        h1 {
-            margin: 0 0 1rem 0;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        p {
-            margin: 0;
-            opacity: 0.9;
-            line-height: 1.5;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="loading-container">
-        <div class="spinner"></div>
-        <h1>HandyDevTools</h1>
-        <p>Loading your developer tools...</p>
-    </div>
-
-    <script>
-        // Get the current path and redirect to the main app
-        (function () {
-            var path = window.location.pathname;
-            var basePath = '/handy-dev-tools';
-
-            // Remove the base path from the current path
-            var cleanPath = path.replace(basePath, '');
-
-            // If we're at the root or 404, go to the main app
-            if (cleanPath === '' || cleanPath === '/') {
-                window.location.href = basePath + '/';
-            } else {
-                // For tool routes, redirect to the main app with the path
-                window.location.href = basePath + '/#!' + cleanPath;
-            }
-        })();
-    </script>
+    <p>Redirecting...</p>
 </body>
 
 </html>

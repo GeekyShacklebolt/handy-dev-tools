@@ -215,40 +215,58 @@ export function analyzeString(text: string) {
 
 // HTML to JSX conversion
 export function htmlToJsx(html: string): string {
-  return html
-    .replace(/class=/g, 'className=')
-    .replace(/for=/g, 'htmlFor=')
-    .replace(/tabindex=/g, 'tabIndex=')
-    .replace(/readonly=/g, 'readOnly=')
-    .replace(/maxlength=/g, 'maxLength=')
-    .replace(/cellpadding=/g, 'cellPadding=')
-    .replace(/cellspacing=/g, 'cellSpacing=')
-    .replace(/rowspan=/g, 'rowSpan=')
-    .replace(/colspan=/g, 'colSpan=')
-    .replace(/usemap=/g, 'useMap=')
-    .replace(/frameborder=/g, 'frameBorder=')
-    .replace(/contenteditable=/g, 'contentEditable=')
-    .replace(/crossorigin=/g, 'crossOrigin=')
-    .replace(/datetime=/g, 'dateTime=')
-    .replace(/enctype=/g, 'encType=')
-    .replace(/formaction=/g, 'formAction=')
-    .replace(/formenctype=/g, 'formEncType=')
-    .replace(/formmethod=/g, 'formMethod=')
-    .replace(/formnovalidate=/g, 'formNoValidate=')
-    .replace(/formtarget=/g, 'formTarget=')
-    .replace(/marginheight=/g, 'marginHeight=')
-    .replace(/marginwidth=/g, 'marginWidth=')
-    .replace(/novalidate=/g, 'noValidate=')
-    .replace(/radiogroup=/g, 'radioGroup=')
-    .replace(/spellcheck=/g, 'spellCheck=')
-    .replace(/srcdoc=/g, 'srcDoc=')
-    .replace(/srclang=/g, 'srcLang=')
-    .replace(/srcset=/g, 'srcSet=')
-    .replace(/autofocus=/g, 'autoFocus=')
-    .replace(/autoplay=/g, 'autoPlay=')
-    .replace(/controlslist=/g, 'controlsList=')
-    .replace(/<!--/g, '{/*')
-    .replace(/-->/g, '*/}');
+  let jsx = html;
+
+  // Convert HTML comments to JSX comments
+  jsx = jsx.replace(/<!--([\s\S]*?)-->/g, '{/*$1*/}');
+
+  // Convert inline style strings to JSX style objects
+  jsx = jsx.replace(/style="([^"]*)"/g, (_match, styleStr: string) => {
+    const props = styleStr.split(';').filter(Boolean).map(prop => {
+      const [key, ...vals] = prop.split(':');
+      if (!key || vals.length === 0) return '';
+      const camelKey = key.trim().replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase());
+      const val = vals.join(':').trim();
+      const numVal = parseFloat(val);
+      if (!isNaN(numVal) && String(numVal) === val) {
+        return `${camelKey}: ${numVal}`;
+      }
+      return `${camelKey}: "${val}"`;
+    }).filter(Boolean);
+    return `style={{${props.join(', ')}}}`;
+  });
+
+  // Convert event handler attributes (onclick, onchange, etc.)
+  jsx = jsx.replace(/\bon([a-z]+)=/gi, (_match, event: string) => {
+    return `on${event.charAt(0).toUpperCase()}${event.slice(1)}=`;
+  });
+
+  // Self-closing void elements
+  const voidElements = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
+  for (const tag of voidElements) {
+    jsx = jsx.replace(new RegExp(`<(${tag})(\\s[^>]*)?>(?!\\s*<\\/${tag}>)`, 'gi'), `<$1$2 />`);
+  }
+
+  // HTML attribute to JSX attribute renames
+  const attrMap: Record<string, string> = {
+    'class': 'className', 'for': 'htmlFor', 'tabindex': 'tabIndex',
+    'readonly': 'readOnly', 'maxlength': 'maxLength', 'cellpadding': 'cellPadding',
+    'cellspacing': 'cellSpacing', 'rowspan': 'rowSpan', 'colspan': 'colSpan',
+    'usemap': 'useMap', 'frameborder': 'frameBorder', 'contenteditable': 'contentEditable',
+    'crossorigin': 'crossOrigin', 'datetime': 'dateTime', 'enctype': 'encType',
+    'formaction': 'formAction', 'formenctype': 'formEncType', 'formmethod': 'formMethod',
+    'formnovalidate': 'formNoValidate', 'formtarget': 'formTarget',
+    'marginheight': 'marginHeight', 'marginwidth': 'marginWidth',
+    'novalidate': 'noValidate', 'radiogroup': 'radioGroup', 'spellcheck': 'spellCheck',
+    'srcdoc': 'srcDoc', 'srclang': 'srcLang', 'srcset': 'srcSet',
+    'autofocus': 'autoFocus', 'autoplay': 'autoPlay', 'controlslist': 'controlsList',
+    'autocomplete': 'autoComplete', 'charset': 'charSet', 'accesskey': 'accessKey',
+  };
+  for (const [html_attr, jsxAttr] of Object.entries(attrMap)) {
+    jsx = jsx.replace(new RegExp(`\\b${html_attr}=`, 'g'), `${jsxAttr}=`);
+  }
+
+  return jsx;
 }
 
 // Cron expression parser

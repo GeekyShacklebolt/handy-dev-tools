@@ -57,15 +57,16 @@
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans antialiased bg-background text-foreground text-sm;
+    font-size: 14px;
   }
 
   .tool-textarea {
-    @apply min-h-[200px] resize-y font-mono text-sm;
+    @apply min-h-[180px] resize-y font-mono text-xs;
   }
 
   .tool-textarea-json {
-    @apply min-h-[400px] resize-y font-mono text-sm;
+    @apply min-h-[300px] resize-y font-mono text-xs;
   }
 
   .tool-input {

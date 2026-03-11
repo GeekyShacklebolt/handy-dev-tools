@@ -145,14 +145,14 @@ export default function MainLayout() {
       {/* Header */}
       <header className="bg-gray-100 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 sticky top-0 z-40">
         <div className="px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-12">
             <div className="flex items-center">
               <button
                 onClick={() => navigate('/')}
                 className="flex items-center hover:opacity-80 transition-opacity"
               >
-                <h1 className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                  <Wrench className="inline mr-2 h-6 w-6 hidden sm:inline" />
+                <h1 className="text-base font-semibold text-blue-600 dark:text-blue-400">
+                  <Wrench className="inline mr-1.5 h-4 w-4 hidden sm:inline" />
                   HandyDevTools
                 </h1>
               </button>
@@ -173,9 +173,9 @@ export default function MainLayout() {
                           setClearTrigger(prev => prev + 1);
                         }
                       }}
-                      className={`h-10 w-10 ${!hasToolStates ? 'opacity-50' : ''}`}
+                      className={`h-8 w-8 ${!hasToolStates ? 'opacity-50' : ''}`}
                     >
-                      <Trash2 className={`h-5 w-5 ${hasToolStates ? 'text-blue-600 dark:text-white' : 'text-gray-400'}`} />
+                      <Trash2 className={`h-4 w-4 ${hasToolStates ? 'text-blue-600 dark:text-white' : 'text-gray-400'}`} />
                     </Button>
                   </div>
                 </TooltipTrigger>
@@ -189,12 +189,12 @@ export default function MainLayout() {
                 variant="ghost"
                 size="icon"
                 onClick={toggleTheme}
-                className="h-10 w-10"
+                className="h-8 w-8"
               >
                 {theme === "dark" ? (
-                  <Sun className="h-5 w-5" />
+                  <Sun className="h-4 w-4" />
                 ) : (
-                  <Moon className="h-5 w-5" />
+                  <Moon className="h-4 w-4" />
                 )}
               </Button>
 
@@ -203,9 +203,9 @@ export default function MainLayout() {
                 variant="outline"
                 size="sm"
                 onClick={() => window.open('https://github.com/GeekyShacklebolt/handy-dev-tools/issues/new', '_blank')}
-                className="h-9 hidden lg:flex"
+                className="h-7 hidden lg:flex text-xs"
               >
-                Give Feedback <Github className="h-4 w-4 ml-1" />
+                Feedback <Github className="h-3.5 w-3.5 ml-1" />
               </Button>
 
               {/* Feedback Button - Mobile */}
@@ -215,9 +215,9 @@ export default function MainLayout() {
                     variant="ghost"
                     size="icon"
                     onClick={() => window.open('https://github.com/GeekyShacklebolt/handy-dev-tools/issues/new', '_blank')}
-                    className="h-10 w-10 lg:hidden"
+                    className="h-8 w-8 lg:hidden"
                   >
-                    <MessageCircle className="h-5 w-5" />
+                    <MessageCircle className="h-4 w-4" />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent>
@@ -230,9 +230,9 @@ export default function MainLayout() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="h-10 w-10 lg:hidden"
+                className="h-8 w-8 lg:hidden"
               >
-                {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+                {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
               </Button>
             </div>
           </div>
@@ -241,33 +241,33 @@ export default function MainLayout() {
 
       <div className="flex flex-1">
         {/* Left Sidebar - Desktop */}
-        <div className={`hidden lg:flex lg:flex-col lg:border-r lg:border-gray-300 lg:dark:border-gray-600 lg:bg-white lg:dark:bg-gray-800 lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] transition-all duration-300 ease-in-out ${
-          isSidebarCollapsed ? 'lg:w-16' : 'lg:w-[280px]'
+        <div className={`hidden lg:flex lg:flex-col lg:border-r lg:border-gray-300 lg:dark:border-gray-600 lg:bg-white lg:dark:bg-gray-800 lg:sticky lg:top-12 lg:h-[calc(100vh-3rem)] transition-all duration-300 ease-in-out ${
+          isSidebarCollapsed ? 'lg:w-14' : 'lg:w-56'
         }`}>
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className="flex-1 overflow-y-auto p-3">
             {/* Search and Collapse Button - Inline */}
-            <div className="mb-6">
+            <div className="mb-3">
               {!isSidebarCollapsed ? (
                 <div className="flex items-center space-x-1">
                   <div className="relative flex-1">
-                    <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Search className="absolute left-2 top-2 h-3.5 w-3.5 text-gray-400" />
                     <Input
                       type="text"
-                      placeholder="Search tools... ⌘ K"
+                      placeholder="Search... ⌘K"
                       value={searchQuery}
                       onChange={(e) => handleSearchChange(e.target.value)}
-                      className="pl-10 w-full"
+                      className="pl-7 w-full text-xs h-7"
                       ref={desktopSearchRef}
                     />
                     {searchQuery && allFilteredTools.length > 0 && (
-                      <ArrowRight className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
+                      <ArrowRight className="absolute right-2 top-2 h-3.5 w-3.5 text-gray-400" />
                     )}
                   </div>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setIsSidebarCollapsed(true)}
-                    className="h-9 w-9 pl-2 hover:bg-transparent"
+                    className="h-7 w-7 pl-1 hover:bg-transparent"
                   >
                     {/* <ChevronsLeft className="h-4 w-4"/> */}
                     <span className="text-gray-400 hover:text-white transition-colors">⌘ \</span>
@@ -295,15 +295,15 @@ export default function MainLayout() {
             </div>
 
             {/* Tool Categories - Only show when expanded */}
-            <div className={`space-y-6 transition-all duration-300 ease-in-out ${
-              isSidebarCollapsed ? 'opacity-0 max-h-0 overflow-hidden' : 'opacity-100 max-h-[1000px]'
+            <div className={`space-y-3 transition-all duration-300 ease-in-out ${
+              isSidebarCollapsed ? 'opacity-0 max-h-0 overflow-hidden' : 'opacity-100 max-h-[2000px]'
             }`}>
               {filteredCategories.map((category) => (
                 <div key={category.id}>
-                  <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3 uppercase tracking-wide">
+                  <h3 className="text-[10px] font-semibold text-gray-500 dark:text-gray-400 mb-1.5 uppercase tracking-wider">
                     {category.name}
                   </h3>
-                  <div className="space-y-1">
+                  <div className="space-y-0.5">
                     {category.tools.map((tool) => {
                       const toolIndex = getToolIndexInFlattenedList(tool.id);
                       const isSelected = searchQuery && toolIndex === selectedToolIndex;
@@ -312,12 +312,12 @@ export default function MainLayout() {
                         <button
                           key={tool.id}
                           onClick={() => handleToolClick(tool.id)}
-                          className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                          className={`w-full text-left px-2 py-1 rounded-md text-xs transition-colors duration-150 ${
                             toolId === tool.id
-                              ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300'
+                              ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-medium'
                               : isSelected
                               ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
-                              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                              : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-gray-200'
                           }`}
                         >
                           {tool.name}
@@ -335,34 +335,34 @@ export default function MainLayout() {
         {isMobileMenuOpen && (
           <div className="fixed inset-0 z-50 lg:hidden">
             <div className="fixed inset-0 bg-black bg-opacity-50" onClick={() => setIsMobileMenuOpen(false)} />
-            <div className="fixed left-0 top-0 bottom-0 w-80 bg-white dark:bg-gray-800 border-r border-gray-300 dark:border-gray-600 overflow-y-auto">
-              <div className="p-4">
+            <div className="fixed left-0 top-0 bottom-0 w-64 bg-white dark:bg-gray-800 border-r border-gray-300 dark:border-gray-600 overflow-y-auto">
+              <div className="p-3">
                 {/* Search */}
-                <div className="mb-6">
+                <div className="mb-3">
                   <div className="relative">
-                    <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Search className="absolute left-2 top-2 h-3.5 w-3.5 text-gray-400" />
                     <Input
                       type="text"
                       placeholder="Search tools..."
                       value={searchQuery}
                       onChange={(e) => handleSearchChange(e.target.value)}
-                      className="pl-10 w-full"
+                      className="pl-7 w-full text-xs h-7"
                       ref={mobileSearchRef}
                     />
                     {searchQuery && allFilteredTools.length > 0 && (
-                      <ArrowRight className="absolute right-3 top-3 h-4 w-4 text-gray-400" />
+                      <ArrowRight className="absolute right-2 top-2 h-3.5 w-3.5 text-gray-400" />
                     )}
                   </div>
                 </div>
 
                 {/* Tool Categories */}
-                <div className="space-y-6">
+                <div className="space-y-3">
                   {filteredCategories.map((category) => (
                     <div key={category.id}>
-                      <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3 uppercase tracking-wide">
+                      <h3 className="text-[10px] font-semibold text-gray-500 dark:text-gray-400 mb-1.5 uppercase tracking-wider">
                         {category.name}
                       </h3>
-                      <div className="space-y-1">
+                      <div className="space-y-0.5">
                         {category.tools.map((tool) => {
                           const toolIndex = getToolIndexInFlattenedList(tool.id);
                           const isSelected = searchQuery && toolIndex === selectedToolIndex;
@@ -371,12 +371,12 @@ export default function MainLayout() {
                             <button
                               key={tool.id}
                               onClick={() => handleToolClick(tool.id)}
-                              className={`w-full text-left px-3 py-2 rounded-md text-sm transition-colors ${
+                              className={`w-full text-left px-2 py-1 rounded-md text-xs transition-colors duration-150 ${
                                 toolId === tool.id
-                                  ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300'
+                                  ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-medium'
                                   : isSelected
                                   ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
-                                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700/50'
                               }`}
                             >
                               {tool.name}
@@ -397,37 +397,36 @@ export default function MainLayout() {
           {currentTool ? (
             <Tool key={clearTrigger} toolId={toolId!} />
           ) : (
-            <div className="h-full flex items-start justify-center bg-gray-50 dark:bg-gray-900 p-8 pt-16">
-              <div className="text-center max-w-2xl">
-                <div className="mb-8">
-                  <Wrench className="mx-auto h-16 w-16 text-blue-500 dark:text-blue-400 mb-4" />
-                  <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+            <div className="h-full flex items-start justify-center bg-gray-50 dark:bg-gray-900 p-4 pt-10">
+              <div className="text-center max-w-xl">
+                <div className="mb-6">
+                  <Wrench className="mx-auto h-10 w-10 text-blue-500 dark:text-blue-400 mb-3" />
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
                     Your One-Stop Utility Kit
                   </h2>
-                  <p className="text-lg text-gray-600 dark:text-gray-400 mb-6">
-                    Choose a tool from the sidebar to get started with your development tasks.
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                    Choose a tool from the sidebar to get started.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-                  <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Text & Data</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Convert, format, and manipulate text and data formats</p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
+                  <div className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100 mb-1">Text & Data</h3>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Convert, format, and manipulate data</p>
                   </div>
-                  <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Code Tools</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Format, beautify, and convert code between languages</p>
+                  <div className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100 mb-1">Code Tools</h3>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">Format, beautify, and convert code</p>
                   </div>
-                  <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">Web Utilities</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">URL parsing, encoding, and web development tools</p>
+                  <div className="bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100 mb-1">Web Utilities</h3>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">URL parsing, encoding, and more</p>
                   </div>
                 </div>
 
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-                  <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">💡 Quick Start</h3>
-                  <p className="text-sm text-blue-700 dark:text-blue-300">
-                    Use the search bar in the sidebar to quickly find the tool you need, or browse through the categories to discover new utilities.
+                <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <p className="text-xs text-blue-700 dark:text-blue-300">
+                    Use <kbd className="px-1 py-0.5 bg-blue-100 dark:bg-blue-800 rounded text-[10px] font-mono">⌘K</kbd> to search tools quickly.
                   </p>
                 </div>
               </div>

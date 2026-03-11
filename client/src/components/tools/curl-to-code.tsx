@@ -30,27 +30,66 @@ export default function CurlToCode() {
 
       const curlCommand = input.trim();
 
-      // Parse cURL command (simplified parsing)
-      const urlMatch = curlCommand.match(/curl\s+(?:-[A-Za-z]+\s+)?(?:'([^']+)'|"([^"]+)"|([^\s]+))/);
-      const url = urlMatch ? (urlMatch[1] || urlMatch[2] || urlMatch[3]) : "";
-
-      const methodMatch = curlCommand.match(/-X\s+(\w+)/i);
-      const method = methodMatch ? methodMatch[1].toLowerCase() : "get";
-
-      const headersMatches = curlCommand.match(/-H\s+(?:'([^']+)'|"([^"]+)")/g) || [];
-      const headers: { [key: string]: string } = {};
-
-      headersMatches.forEach(match => {
-        const headerMatch = match.match(/-H\s+(?:'([^']+)'|"([^"]+)")/);
-        if (headerMatch) {
-          const header = headerMatch[1] || headerMatch[2];
-          const [key, ...valueParts] = header.split(':');
-          headers[key.trim()] = valueParts.join(':').trim();
+      // Tokenize: split on whitespace respecting single/double quotes and backslash continuations
+      const normalized = curlCommand.replace(/\\\n/g, ' ').replace(/\\\r\n/g, ' ');
+      const tokens: string[] = [];
+      let current = '';
+      let inSingle = false;
+      let inDouble = false;
+      for (let i = 0; i < normalized.length; i++) {
+        const ch = normalized[i];
+        if (ch === '\\' && i + 1 < normalized.length && !inSingle) {
+          current += normalized[i + 1];
+          i++;
+        } else if (ch === "'" && !inDouble) {
+          inSingle = !inSingle;
+        } else if (ch === '"' && !inSingle) {
+          inDouble = !inDouble;
+        } else if (/\s/.test(ch) && !inSingle && !inDouble) {
+          if (current) { tokens.push(current); current = ''; }
+        } else {
+          current += ch;
         }
-      });
+      }
+      if (current) tokens.push(current);
 
-      const dataMatch = curlCommand.match(/-d\s+(?:'([^']+)'|"([^"]+)")/);
-      const data = dataMatch ? (dataMatch[1] || dataMatch[2]) : "";
+      // Parse tokens into structured request
+      let url = '';
+      let method = 'GET';
+      const headers: { [key: string]: string } = {};
+      let data = '';
+
+      for (let i = 0; i < tokens.length; i++) {
+        const t = tokens[i];
+        if (t === 'curl') continue;
+
+        if (t === '-X' || t === '--request') {
+          method = tokens[++i]?.toUpperCase() || 'GET';
+        } else if (t === '-H' || t === '--header') {
+          const header = tokens[++i] || '';
+          const colonIdx = header.indexOf(':');
+          if (colonIdx > 0) {
+            headers[header.substring(0, colonIdx).trim()] = header.substring(colonIdx + 1).trim();
+          }
+        } else if (t === '-d' || t === '--data' || t === '--data-raw' || t === '--data-binary') {
+          data = tokens[++i] || '';
+          if (method === 'GET') method = 'POST';
+        } else if (t === '-u' || t === '--user') {
+          const creds = tokens[++i] || '';
+          headers['Authorization'] = 'Basic ' + btoa(creds);
+        } else if (t === '-L' || t === '--location' || t === '--compressed') {
+          // flags we acknowledge but don't need to act on
+        } else if (t === '-b' || t === '--cookie') {
+          headers['Cookie'] = tokens[++i] || '';
+        } else if (t === '-A' || t === '--user-agent') {
+          headers['User-Agent'] = tokens[++i] || '';
+        } else if (t.startsWith('-')) {
+          // Unknown flag, skip its value if it doesn't start with -
+          if (i + 1 < tokens.length && !tokens[i + 1].startsWith('-')) i++;
+        } else if (!url) {
+          url = t;
+        }
+      }
 
       let code = "";
 

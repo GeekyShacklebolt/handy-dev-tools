@@ -42,22 +42,22 @@ export default function ToolLayout({
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4">
       {/* Tool Header */}
-      <div className="mb-8">
-        <div className="flex items-center space-x-3 mb-2">
-          <div className="p-2 bg-blue-100 dark:bg-blue-900/20 rounded-lg">
+      <div className="mb-3">
+        <div className="flex items-center space-x-2 mb-1">
+          <div className="p-1.5 bg-blue-100 dark:bg-blue-900/20 rounded-md">
             {icon}
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
             {title}
           </h2>
         </div>
-        <p className="text-gray-600 dark:text-gray-400">{description}</p>
+        <p className="text-xs text-muted-foreground">{description}</p>
       </div>
 
       {/* Tool Interface */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {children}
       </div>
 
@@ -93,16 +93,16 @@ export function ToolInput({ title, children, actions, headerActions }: ToolInput
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg flex items-center">
-            <div className="p-1 bg-blue-100 dark:bg-blue-900/20 rounded mr-2">
-              <div className="h-4 w-4 bg-blue-500 dark:bg-blue-400 rounded-sm" />
+          <CardTitle className="text-sm font-medium flex items-center">
+            <div className="p-0.5 bg-blue-100 dark:bg-blue-900/20 rounded mr-1.5">
+              <div className="h-3 w-3 bg-blue-500 dark:bg-blue-400 rounded-sm" />
             </div>
             {title}
           </CardTitle>
           {headerActions}
         </div>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-3">
         {children}
         {actions && <div className="flex space-x-2">{actions}</div>}
       </CardContent>
@@ -140,9 +140,9 @@ export function ToolOutput({ title, value, canCopy = true, children }: ToolOutpu
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg flex items-center">
-            <div className="p-1 bg-green-100 dark:bg-green-900/20 rounded mr-2">
-              <div className="h-4 w-4 bg-green-500 dark:bg-green-400 rounded-sm" />
+          <CardTitle className="text-sm font-medium flex items-center">
+            <div className="p-0.5 bg-green-100 dark:bg-green-900/20 rounded mr-1.5">
+              <div className="h-3 w-3 bg-green-500 dark:bg-green-400 rounded-sm" />
             </div>
             {title}
           </CardTitle>

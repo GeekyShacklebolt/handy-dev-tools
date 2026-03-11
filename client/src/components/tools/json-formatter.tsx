@@ -343,17 +343,17 @@ export default function JSONFormatter() {
 
           <div>
             <Label>{jsonPath.trim() ? 'JSONPath Result' : 'Formatted JSON'}</Label>
-            <div className="p-3 bg-muted rounded-md font-mono text-sm mt-1 whitespace-pre-wrap max-h-[500px] overflow-y-auto">
+            <div className="p-3 bg-muted rounded-md font-mono text-xs mt-1 whitespace-pre-wrap max-h-[500px] overflow-y-auto">
                                           {jsonPath.trim() && pathResult ? (
                 <div
-                  className="text-foreground font-mono text-sm whitespace-pre-wrap"
+                  className="text-foreground font-mono text-xs whitespace-pre-wrap"
                   dangerouslySetInnerHTML={{
                     __html: pathResultParsed ? renderCollapsibleJSON(pathResultParsed, "pathResult") : highlightJSON(pathResult)
                   }}
                 />
               ) : (
                 <div
-                  className="text-foreground font-mono text-sm whitespace-pre-wrap"
+                  className="text-foreground font-mono text-xs whitespace-pre-wrap"
                   dangerouslySetInnerHTML={{
                     __html: parsedJson && displayMode === "formatted" ? renderCollapsibleJSON(parsedJson) : (output ? highlightJSON(output) : "No output")
                   }}

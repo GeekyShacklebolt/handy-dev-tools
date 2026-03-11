@@ -95,6 +95,18 @@
 
 <body>
     <div id="root"></div>
+    <script>
+        // GitHub Pages SPA support: pick up redirect from 404.html
+        (function() {
+            var redirect = sessionStorage.getItem('spa-redirect');
+            if (redirect) {
+                sessionStorage.removeItem('spa-redirect');
+                if (redirect !== window.location.pathname) {
+                    window.history.replaceState(null, '', redirect);
+                }
+            }
+        })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
 
     <!-- Buy Me a Coffee Widget -->

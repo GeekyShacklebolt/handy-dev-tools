@@ -66,10 +66,11 @@ export default function PHPSerializer() {
         return `d:${data};`;
       }
     } else if (typeof data === 'string') {
-      return `s:${data.length}:"${data}";`;
+      const byteLength = new TextEncoder().encode(data).length;
+      return `s:${byteLength}:"${data}";`;
     } else if (Array.isArray(data)) {
       let result = `a:${data.length}:{`;
-      data.forEach((item, index) => {
+      data.forEach((item: any, index: number) => {
         result += `i:${index};${phpSerialize(item)}`;
       });
       result += '}';
@@ -78,7 +79,8 @@ export default function PHPSerializer() {
       const keys = Object.keys(data);
       let result = `a:${keys.length}:{`;
       keys.forEach(key => {
-        result += `s:${key.length}:"${key}";${phpSerialize(data[key])}`;
+        const keyByteLength = new TextEncoder().encode(key).length;
+        result += `s:${keyByteLength}:"${key}";${phpSerialize(data[key])}`;
       });
       result += '}';
       return result;
@@ -117,11 +119,21 @@ export default function PHPSerializer() {
 
         case 's':
           const lengthEnd = str.indexOf(':', index);
-          const length = parseInt(str.substring(index, lengthEnd));
+          const byteLen = parseInt(str.substring(index, lengthEnd));
           index = lengthEnd + 2; // Skip ':' and '"'
-          const stringValue = str.substring(index, index + length);
-          index += length + 2; // Skip string and '";'
-          return stringValue;
+          // Read byteLen bytes, not characters (handles multibyte UTF-8)
+          const encoder = new TextEncoder();
+          let strVal = '';
+          let bytesRead = 0;
+          let charIdx = index;
+          while (bytesRead < byteLen && charIdx < str.length) {
+            const char = str[charIdx];
+            bytesRead += encoder.encode(char).length;
+            strVal += char;
+            charIdx++;
+          }
+          index = charIdx + 2; // Skip '";'
+          return strVal;
 
         case 'a':
           const arrayLengthEnd = str.indexOf(':', index);
