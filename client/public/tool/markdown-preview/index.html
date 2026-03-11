@@ -29,7 +29,7 @@
     <link rel="canonical" href="https://www.shivasaxena.com/handy-dev-tools/tool/markdown-preview">
     
     <!-- Instant redirect to main app -->
-    <meta http-equiv="refresh" content="0;url=/handy-dev-tools/tool/markdown-preview">
+    <!-- SEO page - redirects to SPA -->
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/handy-dev-tools/favicon.ico">
@@ -125,13 +125,13 @@
         
         <div class="fallback" id="fallback">
             <p>If you're not redirected automatically:</p>
-            <a href="/handy-dev-tools/tool/markdown-preview">Open Markdown Preview →</a>
+            <a href="/handy-dev-tools/#/tool/markdown-preview">Open Markdown Preview →</a>
         </div>
     </div>
 
     <script>
         // Immediate redirect
-        window.location.replace('/handy-dev-tools/tool/markdown-preview');
+        sessionStorage.setItem('spa-redirect', '/handy-dev-tools/tool/markdown-preview'); window.location.replace('/handy-dev-tools/');
         
         // Show fallback after 2 seconds for slow connections
         setTimeout(function() {
