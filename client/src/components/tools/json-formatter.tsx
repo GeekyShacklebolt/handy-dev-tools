@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FileCode, Check, X, Search, Trash2, ChevronRight, ChevronDown, Wand2 } from "lucide-react";
 import ToolLayout, { ToolInput, ToolOutput } from "@/components/ui/tool-layout";
@@ -15,6 +16,7 @@ export default function JSONFormatter() {
     input: "",
     output: "",
     isValid: null as boolean | null,
+    autoRepair: true,
     wasRepaired: false,
     repairErrors: [] as string[],
     indentSize: "2",
@@ -26,7 +28,7 @@ export default function JSONFormatter() {
     displayMode: "formatted" as "formatted" | "minified"
   });
 
-  const { input, output, isValid, wasRepaired, repairErrors, indentSize, jsonPath, pathResult, pathResultParsed, parsedJson, displayMode } = state;
+  const { input, output, isValid, autoRepair, wasRepaired, repairErrors, indentSize, jsonPath, pathResult, pathResultParsed, parsedJson, displayMode } = state;
 
   const updateState = (updates: Partial<typeof state>) => {
     setState({ ...state, ...updates });
@@ -36,8 +38,8 @@ export default function JSONFormatter() {
     // Try native parse first
     try {
       return { parsed: JSON.parse(text), repaired: false, errors: [] };
-    } catch (_) {
-      // Native parse failed — try auto-repair
+    } catch (nativeError) {
+      if (!autoRepair) throw nativeError;
     }
 
     try {
@@ -189,7 +191,7 @@ export default function JSONFormatter() {
     }, 500); // 500ms debounce for auto-formatting
 
     return () => clearTimeout(timeoutId);
-  }, [input, indentSize]);
+  }, [input, indentSize, autoRepair]);
 
   // Real-time JSONPath search
   useEffect(() => {
@@ -348,13 +350,13 @@ export default function JSONFormatter() {
           </Button>
         }
       >
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div className="flex flex-wrap items-center gap-2">
-            <Button onClick={formatJSON}>Format</Button>
-            <Button variant="outline" onClick={minifyJSON}>Minify</Button>
+            <Button size="sm" onClick={formatJSON}>Format</Button>
+            <Button size="sm" variant="outline" onClick={minifyJSON}>Minify</Button>
             <Select value={indentSize} onValueChange={(value) => updateState({ indentSize: value })}>
-              <SelectTrigger className="w-24">
-                <SelectValue>Indent</SelectValue>
+              <SelectTrigger className="h-9 w-[100px] text-xs">
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="2">2 Spaces</SelectItem>
@@ -362,64 +364,64 @@ export default function JSONFormatter() {
                 <SelectItem value="8">8 Spaces</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="outline" onClick={loadExample}>Load Example</Button>
+            <Button size="sm" variant="outline" onClick={loadExample}>Sample</Button>
+            <div className="flex items-center gap-1.5 ml-auto">
+              <Switch
+                id="auto-repair"
+                checked={autoRepair}
+                onCheckedChange={(checked) => updateState({ autoRepair: checked })}
+              />
+              <Label htmlFor="auto-repair" className="text-xs cursor-pointer flex items-center gap-1">
+                <Wand2 className="h-3 w-3" />
+                Auto-fix
+              </Label>
+            </div>
           </div>
 
-          <div>
-            <Label htmlFor="json-input">JSON Data</Label>
-            <Textarea
-              id="json-input"
-              placeholder='{"name": "John", "age": 30}'
-              value={input}
-              onChange={(e) => updateState({ input: e.target.value })}
-              className="tool-textarea-json h-[500px] resize-none"
-            />
-          </div>
+          <Textarea
+            id="json-input"
+            placeholder='{"name": "John", "age": 30}'
+            value={input}
+            onChange={(e) => updateState({ input: e.target.value })}
+            className="font-mono text-xs h-[500px] resize-none"
+          />
         </div>
       </ToolInput>
 
-            <ToolOutput title="Output" value={output}>
-        <div className="space-y-4">
-          {/* JSONPath Search aligned with buttons */}
-          <div>
-            <Input
-              id="jsonpath-input"
-              placeholder="JSON Path e.g: $.store.book[*].author"
-              value={jsonPath}
-              onChange={(e) => updateState({ jsonPath: e.target.value })}
-              className="h-10"
-              disabled={!parsedJson}
-            />
-          </div>
+      <ToolOutput title="Output" value={output}>
+        <div className="space-y-3">
+          <Input
+            id="jsonpath-input"
+            placeholder="JSONPath e.g: $.store.book[*].author"
+            value={jsonPath}
+            onChange={(e) => updateState({ jsonPath: e.target.value })}
+            className="h-9 text-xs"
+            disabled={!parsedJson}
+          />
 
           {wasRepaired && isValid && (
-            <div className="flex items-start gap-2 p-2.5 bg-amber-500/10 border border-amber-500/30 rounded-md text-xs">
-              <Wand2 className="h-3.5 w-3.5 text-amber-500 mt-0.5 shrink-0" />
-              <div className="text-amber-400">
-                <span className="font-medium">Auto-repaired</span> — Input had errors that were automatically fixed.
-              </div>
+            <div className="flex items-center gap-2 px-2.5 py-1.5 bg-amber-500/10 border border-amber-500/30 rounded-md text-xs text-amber-400">
+              <Wand2 className="h-3.5 w-3.5 text-amber-500 shrink-0" />
+              <span><span className="font-medium">Auto-repaired</span> — malformed input was fixed automatically.</span>
             </div>
           )}
 
-          <div>
-            <Label>{jsonPath.trim() ? 'JSONPath Result' : 'Formatted JSON'}</Label>
-            <div className="p-3 bg-muted rounded-md font-mono text-xs mt-1 whitespace-pre-wrap max-h-[500px] overflow-y-auto">
-                                          {jsonPath.trim() && pathResult ? (
-                <div
-                  className="text-foreground font-mono text-xs whitespace-pre-wrap"
-                  dangerouslySetInnerHTML={{
-                    __html: pathResultParsed ? renderCollapsibleJSON(pathResultParsed, "pathResult") : highlightJSON(pathResult)
-                  }}
-                />
-              ) : (
-                <div
-                  className="text-foreground font-mono text-xs whitespace-pre-wrap"
-                  dangerouslySetInnerHTML={{
-                    __html: parsedJson && displayMode === "formatted" ? renderCollapsibleJSON(parsedJson) : (output ? highlightJSON(output) : "No output")
-                  }}
-                />
-              )}
-            </div>
+          <div className="p-3 bg-muted rounded-md font-mono text-xs whitespace-pre-wrap max-h-[500px] overflow-y-auto">
+            {jsonPath.trim() && pathResult ? (
+              <div
+                className="text-foreground"
+                dangerouslySetInnerHTML={{
+                  __html: pathResultParsed ? renderCollapsibleJSON(pathResultParsed, "pathResult") : highlightJSON(pathResult)
+                }}
+              />
+            ) : (
+              <div
+                className="text-foreground"
+                dangerouslySetInnerHTML={{
+                  __html: parsedJson && displayMode === "formatted" ? renderCollapsibleJSON(parsedJson) : (output ? highlightJSON(output) : "No output")
+                }}
+              />
+            )}
           </div>
         </div>
       </ToolOutput>
