@@ -10,6 +10,31 @@ import { JSONPath } from "jsonpath-plus";
 import { jsonrepair } from "jsonrepair";
 import { useToolState } from "@/hooks/use-tool-state";
 
+// Close unclosed strings at end of line so jsonrepair can handle them
+function fixUnclosedStrings(text: string): string {
+  return text.split('\n').map(line => {
+    let quoteCount = 0;
+    for (let i = 0; i < line.length; i++) {
+      if (line[i] === '"' && (i === 0 || line[i - 1] !== '\\')) {
+        quoteCount++;
+      }
+    }
+    if (quoteCount % 2 !== 0) {
+      return line.trimEnd() + '"';
+    }
+    return line;
+  }).join('\n');
+}
+
+function smartRepair(text: string): string {
+  try {
+    return jsonrepair(text);
+  } catch (_) {
+    // jsonrepair failed — try fixing unclosed strings first, then repair again
+    return jsonrepair(fixUnclosedStrings(text));
+  }
+}
+
 function getErrorLines(original: string): Set<number> {
   const errorLines = new Set<number>();
   try {
@@ -18,7 +43,7 @@ function getErrorLines(original: string): Set<number> {
   } catch (_) {}
 
   try {
-    const repaired = jsonrepair(original);
+    const repaired = smartRepair(original);
     const origLines = original.split('\n');
     const repLines = repaired.split('\n');
     const maxLines = Math.max(origLines.length, repLines.length);
@@ -107,7 +132,7 @@ export default function JSONFormatter() {
       if (!autoRepair) throw nativeError;
     }
     try {
-      const repaired = jsonrepair(text);
+      const repaired = smartRepair(text);
       return { parsed: JSON.parse(repaired), repaired: true };
     } catch (_) {
       // Repair also failed — throw the original native error (clearer message)
