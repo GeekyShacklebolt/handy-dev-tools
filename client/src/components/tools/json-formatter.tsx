@@ -402,31 +402,8 @@ export default function JSONFormatter() {
       >
         <div className="space-y-3">
           <div className="flex flex-wrap items-center gap-2">
-            <Button size="sm" onClick={formatJSON}>Format</Button>
             <Button size="sm" variant="outline" onClick={minifyJSON}>Minify</Button>
-            <Select value={indentSize} onValueChange={(value) => updateState({ indentSize: value })}>
-              <SelectTrigger className="h-8 w-[90px] text-xs px-2">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="2">2 Spaces</SelectItem>
-                <SelectItem value="4">4 Spaces</SelectItem>
-                <SelectItem value="8">8 Spaces</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button size="sm" variant="outline" onClick={loadExample}>Sample</Button>
-            <div className="flex items-center gap-1.5 ml-auto">
-              <Switch
-                id="auto-repair"
-                checked={autoRepair && canRepair}
-                onCheckedChange={(checked) => updateState({ autoRepair: checked })}
-                disabled={!canRepair}
-              />
-              <Label htmlFor="auto-repair" className={`text-xs flex items-center gap-1 ${canRepair ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
-                <Wand2 className="h-3 w-3" />
-                Auto-fix
-              </Label>
-            </div>
+            <Button size="sm" variant="outline" onClick={loadExample}>Load Example</Button>
           </div>
 
           {/* Code editor with error highlights */}
@@ -462,14 +439,38 @@ export default function JSONFormatter() {
 
       <ToolOutput title="Output" value={output} className="lg:col-span-2">
         <div className="space-y-3">
-          <Input
-            id="jsonpath-input"
-            placeholder="JSONPath e.g: $.store.book[*].author"
-            value={jsonPath}
-            onChange={(e) => updateState({ jsonPath: e.target.value })}
-            className="h-8 text-xs"
-            disabled={!parsedJson}
-          />
+          <div className="flex flex-wrap items-center gap-2">
+            <Select value={indentSize} onValueChange={(value) => updateState({ indentSize: value })}>
+              <SelectTrigger className="h-8 w-[90px] text-xs px-2">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="2">2 Spaces</SelectItem>
+                <SelectItem value="4">4 Spaces</SelectItem>
+                <SelectItem value="8">8 Spaces</SelectItem>
+              </SelectContent>
+            </Select>
+            <div className="flex items-center gap-1.5">
+              <Switch
+                id="auto-repair"
+                checked={autoRepair && canRepair}
+                onCheckedChange={(checked) => updateState({ autoRepair: checked })}
+                disabled={!canRepair}
+              />
+              <Label htmlFor="auto-repair" className={`text-xs flex items-center gap-1 ${canRepair ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
+                <Wand2 className="h-3 w-3" />
+                Auto-fix
+              </Label>
+            </div>
+            <Input
+              id="jsonpath-input"
+              placeholder="JSONPath e.g: $.store.book[*].author"
+              value={jsonPath}
+              onChange={(e) => updateState({ jsonPath: e.target.value })}
+              className="h-8 text-xs flex-1"
+              disabled={!parsedJson}
+            />
+          </div>
 
           <div className="p-3 bg-muted rounded-md font-mono text-xs whitespace-pre-wrap max-h-[calc(100vh-16rem)] overflow-y-auto">
             {jsonPath.trim() && pathResult ? (
