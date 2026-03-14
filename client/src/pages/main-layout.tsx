@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTheme } from "@/lib/theme-context";
 import { toolCategories, getToolById } from "@/lib/tools-config";
-import { Search, Moon, Sun, Menu, Wrench, X, Trash2, ChevronsLeft, ChevronsRight, ArrowRight, Github, MessageCircle, Download } from "lucide-react";
+import { Search, Moon, Sun, Menu, Wrench, X, Trash2, ChevronsLeft, ChevronsRight, ArrowRight, Github, MessageCircle, Download, Coffee } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { clearAllToolStates, useHasToolStates } from "@/hooks/use-tool-state";
 import { isTauri } from "@/lib/platform";
@@ -242,6 +242,33 @@ export default function MainLayout() {
                 </Tooltip>
               )}
 
+              {/* Buy Me a Coffee - Desktop */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => window.open('https://www.buymeacoffee.com/shivasaxena', '_blank')}
+                className="h-7 hidden lg:flex text-xs"
+              >
+                Buy me a coffee <Coffee className="h-3.5 w-3.5 ml-1" />
+              </Button>
+
+              {/* Buy Me a Coffee - Mobile */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => window.open('https://www.buymeacoffee.com/shivasaxena', '_blank')}
+                    className="h-8 w-8 lg:hidden"
+                  >
+                    <Coffee className="h-4 w-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Buy me a coffee</p>
+                </TooltipContent>
+              </Tooltip>
+
               {/* Feedback Button - Desktop */}
               <Button
                 variant="outline"
@@ -468,10 +495,22 @@ export default function MainLayout() {
                   </div>
                 </div>
 
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800">
-                  <p className="text-xs text-blue-700 dark:text-blue-300">
-                    Use <kbd className="px-1 py-0.5 bg-blue-100 dark:bg-blue-800 rounded text-[10px] font-mono">⌘K</kbd> to search tools quickly.
-                  </p>
+                <div className="mt-2 max-w-[200px] mx-auto space-y-2">
+                  <h3 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider text-center mb-3">Shortcuts</h3>
+                  {[
+                    { label: "Search Tools", keys: ["⌘", "K"] },
+                    { label: "Toggle Sidebar", keys: ["⌘", "\\"] },
+                    ...(isTauri ? [{ label: "Previous Tool", keys: ["⌘", "⇧", "{"] }] : []),
+                  ].map(({ label, keys }) => (
+                    <div key={label} className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                      <span>{label}</span>
+                      <div className="flex gap-1">
+                        {keys.map((key, i) => (
+                          <kbd key={i} className="min-w-[24px] h-6 flex items-center justify-center px-1.5 bg-gray-200 dark:bg-gray-700 rounded text-[11px] font-mono text-gray-600 dark:text-gray-300">{key}</kbd>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
