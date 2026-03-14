@@ -9,6 +9,7 @@ import ToolLayout, { ToolInput, ToolOutput } from "@/components/ui/tool-layout";
 import { JSONPath } from "jsonpath-plus";
 import { jsonrepair } from "jsonrepair";
 import { useToolState } from "@/hooks/use-tool-state";
+import { isTauri } from "@/lib/platform";
 
 // Close unclosed strings at end of line so jsonrepair can handle them
 function fixUnclosedStrings(text: string): string {
@@ -419,7 +420,7 @@ export default function JSONFormatter() {
           </div>
 
           {/* Code editor with error highlights */}
-          <div className="json-editor-wrap relative h-[calc(100vh-16rem)] rounded-md border border-input bg-background overflow-hidden">
+          <div className="json-editor-wrap relative h-[calc(100vh-13rem)] rounded-md border border-input bg-background overflow-hidden">
             <div
               ref={highlightRef}
               className="json-editor-highlights absolute inset-0 p-3 font-mono text-xs whitespace-pre overflow-auto pointer-events-none"
@@ -472,7 +473,7 @@ export default function JSONFormatter() {
             </Select>
           </div>
 
-          <div className="p-3 bg-muted rounded-md font-mono text-xs whitespace-pre-wrap max-h-[calc(100vh-16rem)] overflow-y-auto">
+          <div className="p-3 bg-muted rounded-md font-mono text-xs whitespace-pre-wrap h-[calc(100vh-13rem)] overflow-y-auto">
             {jsonPath.trim() && pathResult ? (
               <div
                 className="text-foreground"
