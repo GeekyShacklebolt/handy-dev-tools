@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTheme } from "@/lib/theme-context";
 import { toolCategories, getToolById } from "@/lib/tools-config";
-import { Search, Moon, Sun, Menu, Wrench, X, Trash2, ChevronsLeft, ChevronsRight, ArrowRight, Github, MessageCircle } from "lucide-react";
+import { Search, Moon, Sun, Menu, Wrench, X, Trash2, ChevronsLeft, ChevronsRight, ArrowRight, Github, MessageCircle, Download } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { clearAllToolStates, useHasToolStates } from "@/hooks/use-tool-state";
+import { isTauri } from "@/lib/platform";
 import { SEOHead } from "@/components/SEOHead";
 import Tool from "./tool";
 
@@ -23,6 +24,7 @@ export default function MainLayout() {
   // Refs for search inputs
   const desktopSearchRef = useRef<HTMLInputElement>(null);
   const mobileSearchRef = useRef<HTMLInputElement>(null);
+  const previousToolIdRef = useRef<string | null>(null);
 
   // Extract tool ID directly from location instead of useParams
   const toolId = location.startsWith('/tool/') ? location.split('/tool/')[1] : null;
@@ -43,6 +45,9 @@ export default function MainLayout() {
   const allFilteredTools = filteredCategories.flatMap(category => category.tools);
 
   const handleToolClick = (newToolId: string) => {
+    if (toolId) {
+      previousToolIdRef.current = toolId;
+    }
     navigate(`/tool/${newToolId}`);
     setIsMobileMenuOpen(false);
   };
@@ -63,6 +68,16 @@ export default function MainLayout() {
       if ((event.metaKey || event.ctrlKey) && event.key === '\\') {
         event.preventDefault();
         setIsSidebarCollapsed(!isSidebarCollapsed);
+      }
+
+      // CMD+Shift+{ - go back to previous tool (Tauri only, browser uses this for tab switching)
+      if (isTauri && event.metaKey && event.shiftKey && (event.key === '{' || event.key === '[')) {
+        event.preventDefault();
+        if (previousToolIdRef.current) {
+          const prevId = previousToolIdRef.current;
+          previousToolIdRef.current = toolId;
+          navigate(`/tool/${prevId}`);
+        }
       }
 
       // Check for CMD+K (Mac) or CTRL+K (Windows/Linux) - focus search
@@ -197,6 +212,35 @@ export default function MainLayout() {
                   <Moon className="h-4 w-4" />
                 )}
               </Button>
+
+              {/* Download Mac App Button - Web only */}
+              {!isTauri && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => window.open('https://github.com/GeekyShacklebolt/handy-dev-tools/releases/latest', '_blank')}
+                  className="h-7 hidden lg:flex text-xs"
+                >
+                  Download Mac App v1 <Download className="h-3.5 w-3.5 ml-1" />
+                </Button>
+              )}
+              {!isTauri && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => window.open('https://github.com/GeekyShacklebolt/handy-dev-tools/releases/latest', '_blank')}
+                      className="h-8 w-8 lg:hidden"
+                    >
+                      <Download className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Download Mac App v1</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
 
               {/* Feedback Button - Desktop */}
               <Button

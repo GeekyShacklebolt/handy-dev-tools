@@ -3,6 +3,7 @@ import { Switch, Route, Router as WouterRouter, BaseLocationHook } from "wouter"
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/lib/theme-context";
+import { isTauri } from "@/lib/platform";
 import NotFound from "@/pages/not-found";
 import MainLayout from "@/pages/main-layout";
 
@@ -16,7 +17,7 @@ function Router() {
   );
 }
 
-const basePath = '/handy-dev-tools';
+const basePath = isTauri ? '' : '/handy-dev-tools';
 
 // Custom location hook that strips the base path for wouter routing
 const useLocationHook: BaseLocationHook = () => {

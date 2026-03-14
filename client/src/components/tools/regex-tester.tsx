@@ -57,12 +57,14 @@ export default function RegexTester() {
       }
 
       // Highlight matches in the text
-      let highlighted = testString;
+      const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      let highlighted = escapeHtml(testString);
       if (foundMatches.length > 0) {
         foundMatches.forEach(match => {
+          const escapedMatch = escapeHtml(match);
           highlighted = highlighted.replace(
-            new RegExp(match.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'),
-            `<mark class="regex-match">${match}</mark>`
+            new RegExp(escapedMatch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'),
+            `<mark class="regex-match">${escapedMatch}</mark>`
           );
         });
       }
