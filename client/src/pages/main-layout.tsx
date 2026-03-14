@@ -2,9 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import { useLocation, useParams } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useTheme } from "@/lib/theme-context";
+
 import { toolCategories, getToolById } from "@/lib/tools-config";
-import { Search, Moon, Sun, Menu, Wrench, X, Trash2, ChevronsLeft, ChevronsRight, ArrowRight, Github, MessageCircle, Download, Coffee } from "lucide-react";
+import { Search, Menu, Wrench, X, Trash2, ChevronsLeft, ChevronsRight, ArrowRight, Github, MessageCircle, Download, Coffee } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { clearAllToolStates, useHasToolStates } from "@/hooks/use-tool-state";
 import { isTauri } from "@/lib/platform";
@@ -13,7 +13,7 @@ import Tool from "./tool";
 
 export default function MainLayout() {
   const [location, navigate] = useLocation();
-  const { theme, toggleTheme } = useTheme();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [clearTrigger, setClearTrigger] = useState(0);
@@ -198,20 +198,6 @@ export default function MainLayout() {
                   <p>{hasToolStates ? 'Clear all tools' : 'No data to reset'}</p>
                 </TooltipContent>
               </Tooltip>
-
-              {/* Theme Toggle */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleTheme}
-                className="h-8 w-8"
-              >
-                {theme === "dark" ? (
-                  <Sun className="h-4 w-4" />
-                ) : (
-                  <Moon className="h-4 w-4" />
-                )}
-              </Button>
 
               {/* Download Mac App Button - Web only */}
               {!isTauri && (
