@@ -107,6 +107,9 @@ export default function JSONFormatter() {
   });
 
   const { input, output, isValid, autoRepair, wasRepaired, indentSize, jsonPath, pathResult, pathResultParsed, parsedJson, displayMode } = state;
+
+  // Check if repair is possible for the current input
+  const [canRepair, setCanRepair] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const highlightRef = useRef<HTMLDivElement>(null);
   const [errorLines, setErrorLines] = useState<Set<number>>(new Set());
@@ -209,14 +212,28 @@ export default function JSONFormatter() {
     }
   };
 
-  // Compute error lines for highlighting
+  // Compute error lines for highlighting + check if repair is possible
   useEffect(() => {
     if (!input.trim()) {
       setErrorLines(new Set());
+      setCanRepair(false);
       return;
     }
     const timeout = setTimeout(() => {
       setErrorLines(getErrorLines(input));
+      // Check if input needs repair and if repair succeeds
+      try {
+        JSON.parse(input);
+        setCanRepair(false); // Valid JSON, no repair needed
+      } catch {
+        try {
+          const repaired = smartRepair(input);
+          JSON.parse(repaired);
+          setCanRepair(true); // Repair produces valid JSON
+        } catch {
+          setCanRepair(false); // Repair also fails
+        }
+      }
     }, 300);
     return () => clearTimeout(timeout);
   }, [input]);
@@ -399,10 +416,11 @@ export default function JSONFormatter() {
             <div className="flex items-center gap-1.5 ml-auto">
               <Switch
                 id="auto-repair"
-                checked={autoRepair}
+                checked={autoRepair && canRepair}
                 onCheckedChange={(checked) => updateState({ autoRepair: checked })}
+                disabled={!canRepair}
               />
-              <Label htmlFor="auto-repair" className="text-xs cursor-pointer flex items-center gap-1">
+              <Label htmlFor="auto-repair" className={`text-xs flex items-center gap-1 ${canRepair ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
                 <Wand2 className="h-3 w-3" />
                 Auto-fix
               </Label>
