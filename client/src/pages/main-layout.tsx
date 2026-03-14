@@ -495,10 +495,22 @@ export default function MainLayout() {
                   </div>
                 </div>
 
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800">
-                  <p className="text-xs text-blue-700 dark:text-blue-300">
-                    Use <kbd className="px-1 py-0.5 bg-blue-100 dark:bg-blue-800 rounded text-[10px] font-mono">⌘K</kbd> to search tools quickly.
-                  </p>
+                <div className="mt-2 max-w-[200px] mx-auto space-y-2">
+                  <h3 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider text-center mb-3">Shortcuts</h3>
+                  {[
+                    { label: "Search Tools", keys: ["⌘", "K"] },
+                    { label: "Toggle Sidebar", keys: ["⌘", "\\"] },
+                    ...(isTauri ? [{ label: "Previous Tool", keys: ["⌘", "⇧", "{"] }] : []),
+                  ].map(({ label, keys }) => (
+                    <div key={label} className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                      <span>{label}</span>
+                      <div className="flex gap-1">
+                        {keys.map((key, i) => (
+                          <kbd key={i} className="min-w-[24px] h-6 flex items-center justify-center px-1.5 bg-gray-200 dark:bg-gray-700 rounded text-[11px] font-mono text-gray-600 dark:text-gray-300">{key}</kbd>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
