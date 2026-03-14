@@ -10,6 +10,7 @@ interface ToolLayoutProps {
   icon: React.ReactNode;
   children: React.ReactNode;
   outputValue?: string;
+  gridClassName?: string;
 }
 
 export default function ToolLayout({
@@ -18,6 +19,7 @@ export default function ToolLayout({
   icon,
   children,
   outputValue,
+  gridClassName,
 }: ToolLayoutProps) {
   const { toast } = useToast();
 
@@ -55,7 +57,7 @@ export default function ToolLayout({
       </div>
 
       {/* Tool Interface */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className={gridClassName || "grid grid-cols-1 lg:grid-cols-2 gap-4"}>
         {children}
       </div>
 
@@ -97,9 +99,10 @@ interface ToolOutputProps {
   value: string;
   canCopy?: boolean;
   children?: React.ReactNode;
+  className?: string;
 }
 
-export function ToolOutput({ title, value, canCopy = true, children }: ToolOutputProps) {
+export function ToolOutput({ title, value, canCopy = true, children, className }: ToolOutputProps) {
   const { toast } = useToast();
 
   const copyToClipboard = async () => {
@@ -119,7 +122,7 @@ export function ToolOutput({ title, value, canCopy = true, children }: ToolOutpu
   };
 
   return (
-    <Card>
+    <Card className={className}>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-sm font-medium flex items-center">
