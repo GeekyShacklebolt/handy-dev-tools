@@ -389,6 +389,7 @@ export default function JSONFormatter() {
       description="Format, beautify and minify JSON data"
       icon={<FileCode className="h-6 w-6 text-blue-500" />}
       outputValue={output}
+      gridClassName="grid grid-cols-1 lg:grid-cols-3 gap-4"
     >
       <ToolInput
         title="Input"
@@ -429,7 +430,7 @@ export default function JSONFormatter() {
           </div>
 
           {/* Code editor with error highlights */}
-          <div className="json-editor-wrap relative h-[500px] rounded-md border border-input bg-background overflow-hidden">
+          <div className="json-editor-wrap relative h-[calc(100vh-16rem)] rounded-md border border-input bg-background overflow-hidden">
             <div
               ref={highlightRef}
               className="json-editor-highlights absolute inset-0 p-3 font-mono text-xs whitespace-pre overflow-auto pointer-events-none"
@@ -459,7 +460,7 @@ export default function JSONFormatter() {
         </div>
       </ToolInput>
 
-      <ToolOutput title="Output" value={output}>
+      <ToolOutput title="Output" value={output} className="lg:col-span-2">
         <div className="space-y-3">
           <Input
             id="jsonpath-input"
@@ -470,7 +471,7 @@ export default function JSONFormatter() {
             disabled={!parsedJson}
           />
 
-          <div className="p-3 bg-muted rounded-md font-mono text-xs whitespace-pre-wrap max-h-[500px] overflow-y-auto">
+          <div className="p-3 bg-muted rounded-md font-mono text-xs whitespace-pre-wrap max-h-[calc(100vh-16rem)] overflow-y-auto">
             {jsonPath.trim() && pathResult ? (
               <div
                 className="text-foreground"
