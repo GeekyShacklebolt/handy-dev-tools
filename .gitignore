@@ -16,3 +16,6 @@ yarn-error.log*
 .DS_Store
 
 .bin/
+
+# Tauri build artifacts
+src-tauri/target/
