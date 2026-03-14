@@ -172,8 +172,8 @@ export default function MainLayout() {
     <TooltipProvider>
       <SEOHead toolId={toolId || undefined} />
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
-      {/* Header */}
-      <header className="bg-gray-100 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 sticky top-0 z-40">
+      {/* Header - hidden in Tauri (macOS title bar replaces it) */}
+      {!isTauri && <header className="bg-gray-100 dark:bg-gray-800 border-b border-gray-300 dark:border-gray-600 sticky top-0 z-40">
         <div className="px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-12">
             <div className="flex items-center">
@@ -309,11 +309,11 @@ export default function MainLayout() {
             </div>
           </div>
         </div>
-      </header>
+      </header>}
 
       <div className="flex flex-1">
         {/* Left Sidebar - Desktop */}
-        <div className={`hidden lg:flex lg:flex-col lg:border-r lg:border-gray-300 lg:dark:border-gray-600 lg:bg-white lg:dark:bg-gray-800 lg:sticky lg:top-12 lg:h-[calc(100vh-3rem)] transition-all duration-300 ease-in-out ${
+        <div className={`hidden lg:flex lg:flex-col lg:border-r lg:border-gray-300 lg:dark:border-gray-600 lg:bg-white lg:dark:bg-gray-800 lg:sticky ${isTauri ? 'lg:top-0 lg:h-screen' : 'lg:top-12 lg:h-[calc(100vh-3rem)]'} transition-all duration-300 ease-in-out ${
           isSidebarCollapsed ? 'lg:w-14' : 'lg:w-56'
         }`}>
           <div className="flex-1 overflow-y-auto p-3">
