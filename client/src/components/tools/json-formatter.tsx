@@ -452,6 +452,14 @@ export default function JSONFormatter() {
       <ToolOutput title="Output" value={output} className="lg:col-span-2">
         <div className="space-y-3">
           <div className="flex flex-wrap items-center gap-2">
+            <Input
+              id="jsonpath-input"
+              placeholder="JSONPath e.g: $.store.book[*].author"
+              value={jsonPath}
+              onChange={(e) => updateState({ jsonPath: e.target.value })}
+              className="h-8 text-xs flex-1"
+              disabled={!parsedJson}
+            />
             <Select value={indentSize} onValueChange={(value) => updateState({ indentSize: value })}>
               <SelectTrigger className="h-8 w-[90px] text-xs px-2">
                 <SelectValue />
@@ -462,14 +470,6 @@ export default function JSONFormatter() {
                 <SelectItem value="8">8 Spaces</SelectItem>
               </SelectContent>
             </Select>
-            <Input
-              id="jsonpath-input"
-              placeholder="JSONPath e.g: $.store.book[*].author"
-              value={jsonPath}
-              onChange={(e) => updateState({ jsonPath: e.target.value })}
-              className="h-8 text-xs flex-1"
-              disabled={!parsedJson}
-            />
           </div>
 
           <div className="p-3 bg-muted rounded-md font-mono text-xs whitespace-pre-wrap max-h-[calc(100vh-16rem)] overflow-y-auto">
