@@ -162,15 +162,4 @@
     color: hsl(var(--muted-foreground));
   }
 
-  /* Hide BMC widget on mobile */
-  @media (max-width: 768px) {
-    [data-name="BMC-Widget"],
-    [data-name="BMC-Widget"] + div,
-    [data-name="BMC-Widget"] ~ div,
-    iframe[src*="buymeacoffee"],
-    .bmc-btn-container,
-    #bmc-widget {
-      display: none !important;
-    }
-  }
 }

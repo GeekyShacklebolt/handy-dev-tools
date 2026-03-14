@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTheme } from "@/lib/theme-context";
 import { toolCategories, getToolById } from "@/lib/tools-config";
-import { Search, Moon, Sun, Menu, Wrench, X, Trash2, ChevronsLeft, ChevronsRight, ArrowRight, Github, MessageCircle, Download } from "lucide-react";
+import { Search, Moon, Sun, Menu, Wrench, X, Trash2, ChevronsLeft, ChevronsRight, ArrowRight, Github, MessageCircle, Download, Coffee } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { clearAllToolStates, useHasToolStates } from "@/hooks/use-tool-state";
 import { isTauri } from "@/lib/platform";
@@ -241,6 +241,33 @@ export default function MainLayout() {
                   </TooltipContent>
                 </Tooltip>
               )}
+
+              {/* Buy Me a Coffee - Desktop */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => window.open('https://www.buymeacoffee.com/shivasaxena', '_blank')}
+                className="h-7 hidden lg:flex text-xs"
+              >
+                Buy me a coffee <Coffee className="h-3.5 w-3.5 ml-1" />
+              </Button>
+
+              {/* Buy Me a Coffee - Mobile */}
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => window.open('https://www.buymeacoffee.com/shivasaxena', '_blank')}
+                    className="h-8 w-8 lg:hidden"
+                  >
+                    <Coffee className="h-4 w-4" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Buy me a coffee</p>
+                </TooltipContent>
+              </Tooltip>
 
               {/* Feedback Button - Desktop */}
               <Button
