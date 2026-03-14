@@ -10,7 +10,6 @@
     "beforeBuildCommand": "npm run build:vite"
   },
   "app": {
-    "title": "Handy Dev Tools",
     "windows": [
       {
         "title": "Handy Dev Tools",

@@ -7,15 +7,17 @@ import ToolLayout, { ToolInput, ToolOutput } from "@/components/ui/tool-layout";
 import { useToolState } from "@/hooks/use-tool-state";
 
 export default function JWTDebugger() {
+  // JWT input is kept in session-only state (not persisted to localStorage)
+  // because JWTs are bearer tokens that should not be written to disk
+  const [jwtInput, setJwtInput] = useState("");
   const [state, setState] = useToolState("jwt-debugger", {
-    jwtInput: "",
     header: "",
     payload: "",
     signature: "",
     error: ""
   });
 
-  const { jwtInput, header, payload, signature, error } = state;
+  const { header, payload, signature, error } = state;
 
   const updateState = (updates: Partial<typeof state>) => {
     setState({ ...state, ...updates });
@@ -67,8 +69,8 @@ export default function JWTDebugger() {
   };
 
   const clearAll = () => {
+    setJwtInput("");
     updateState({
-      jwtInput: "",
       header: "",
       payload: "",
       signature: "",
@@ -109,16 +111,16 @@ export default function JWTDebugger() {
       const signaturePart = parts[2];
 
       // Update all state at once
+      setJwtInput(example);
       updateState({
-        jwtInput: example,
         header: headerJson,
         payload: payloadJson,
         signature: signaturePart,
         error: ""
       });
     } catch (err) {
+      setJwtInput(example);
       updateState({
-        jwtInput: example,
         error: err instanceof Error ? err.message : "Failed to decode JWT",
         header: "",
         payload: "",
@@ -142,7 +144,7 @@ export default function JWTDebugger() {
               id="jwt-input"
               placeholder="Paste your JWT token here"
               value={jwtInput}
-              onChange={(e) => updateState({ jwtInput: e.target.value })}
+              onChange={(e) => setJwtInput(e.target.value)}
               className="tool-textarea"
             />
           </div>
