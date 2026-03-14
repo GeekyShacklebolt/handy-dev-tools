@@ -60,5 +60,5 @@ export default defineConfig({
       deny: ["**/.*"],
     },
   },
-  envPrefix: ["VITE_", "TAURI_ENV_*"],
+  envPrefix: ["VITE_", "TAURI_ENV_"],
 });

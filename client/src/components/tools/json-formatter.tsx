@@ -326,8 +326,8 @@ export default function JSONFormatter() {
 
   const highlightJSON = (jsonString: string) => {
     return escapeHtml(jsonString)
-      .replace(/&quot;([^&]*)&quot;:/g, '<span style="color: #ffffff;">"$1"</span>:')
-      .replace(/&quot;([^&]*)&quot;(?=\s*[,}\]])/g, '<span style="color: #10b981;">"$1"</span>')
+      .replace(/"([^"]+)":/g, '<span style="color: #ffffff;">"$1"</span>:')
+      .replace(/"([^"]*)"(?=\s*[,}\]])/g, '<span style="color: #10b981;">"$1"</span>')
       .replace(/\b(true|false|null)\b/g, '<span style="color: #8b5cf6;">$1</span>')
       .replace(/\b(\d+(?:\.\d+)?)\b/g, '<span style="color: #f59e0b;">$1</span>');
   };
