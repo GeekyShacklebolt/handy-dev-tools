@@ -3,7 +3,7 @@ import { useLocation, useParams } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import { toolCategories, getToolById } from "@/lib/tools-config";
+import { toolCategories, getToolById, allTools } from "@/lib/tools-config";
 import { Search, Menu, Wrench, X, Trash2, ChevronsLeft, ChevronsRight, ArrowRight, Github, MessageCircle, Download, Coffee } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { clearAllToolStates, useHasToolStates } from "@/hooks/use-tool-state";
@@ -45,10 +45,13 @@ export default function MainLayout() {
   // Create flattened list of all filtered tools for keyboard navigation
   const allFilteredTools = filteredCategories.flatMap(category => category.tools);
 
+  const maxHistory = allTools.length;
+
   const handleToolClick = (newToolId: string) => {
     if (toolId) {
       toolHistoryRef.current.push(toolId);
-      toolForwardRef.current = []; // Clear forward stack on new navigation
+      if (toolHistoryRef.current.length > maxHistory) toolHistoryRef.current.shift();
+      toolForwardRef.current = [];
     }
     navigate(`/tool/${newToolId}`);
     setIsMobileMenuOpen(false);
