@@ -218,7 +218,7 @@ export default function MainLayout() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => window.open('https://github.com/GeekyShacklebolt/handy-dev-tools/releases/latest', '_blank')}
+                  onClick={() => window.open('https://github.com/GeekyShacklebolt/handy-dev-tools/releases/download/v1.0.0/Handy.Dev.Tools_1.0.0_aarch64.dmg', '_blank')}
                   className="h-7 hidden lg:flex text-xs"
                 >
                   Download Mac App v1 <Download className="h-3.5 w-3.5 ml-1" />
@@ -230,7 +230,7 @@ export default function MainLayout() {
                     <Button
                       variant="ghost"
                       size="icon"
-                      onClick={() => window.open('https://github.com/GeekyShacklebolt/handy-dev-tools/releases/latest', '_blank')}
+                      onClick={() => window.open('https://github.com/GeekyShacklebolt/handy-dev-tools/releases/download/v1.0.0/Handy.Dev.Tools_1.0.0_aarch64.dmg', '_blank')}
                       className="h-8 w-8 lg:hidden"
                     >
                       <Download className="h-4 w-4" />
