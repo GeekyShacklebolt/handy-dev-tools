@@ -24,7 +24,8 @@ export default function MainLayout() {
   // Refs for search inputs
   const desktopSearchRef = useRef<HTMLInputElement>(null);
   const mobileSearchRef = useRef<HTMLInputElement>(null);
-  const previousToolIdRef = useRef<string | null>(null);
+  const toolHistoryRef = useRef<string[]>([]);
+  const toolForwardRef = useRef<string[]>([]);
 
   // Extract tool ID directly from location instead of useParams
   const toolId = location.startsWith('/tool/') ? location.split('/tool/')[1] : null;
@@ -46,7 +47,8 @@ export default function MainLayout() {
 
   const handleToolClick = (newToolId: string) => {
     if (toolId) {
-      previousToolIdRef.current = toolId;
+      toolHistoryRef.current.push(toolId);
+      toolForwardRef.current = []; // Clear forward stack on new navigation
     }
     navigate(`/tool/${newToolId}`);
     setIsMobileMenuOpen(false);
@@ -70,13 +72,23 @@ export default function MainLayout() {
         setIsSidebarCollapsed(!isSidebarCollapsed);
       }
 
-      // CMD+Shift+{ - go back to previous tool (Tauri only, browser uses this for tab switching)
+      // CMD+Shift+{ - go back to previous tool (Tauri only)
       if (isTauri && event.metaKey && event.shiftKey && (event.key === '{' || event.key === '[')) {
         event.preventDefault();
-        if (previousToolIdRef.current) {
-          const prevId = previousToolIdRef.current;
-          previousToolIdRef.current = toolId;
+        const prevId = toolHistoryRef.current.pop();
+        if (prevId) {
+          if (toolId) toolForwardRef.current.push(toolId);
           navigate(`/tool/${prevId}`);
+        }
+      }
+
+      // CMD+Shift+} - go forward to next tool (Tauri only)
+      if (isTauri && event.metaKey && event.shiftKey && (event.key === '}' || event.key === ']')) {
+        event.preventDefault();
+        const nextId = toolForwardRef.current.pop();
+        if (nextId) {
+          if (toolId) toolHistoryRef.current.push(toolId);
+          navigate(`/tool/${nextId}`);
         }
       }
 
@@ -486,7 +498,10 @@ export default function MainLayout() {
                   {[
                     { label: "Search Tools", keys: ["⌘", "K"] },
                     { label: "Toggle Sidebar", keys: ["⌘", "\\"] },
-                    ...(isTauri ? [{ label: "Previous Tool", keys: ["⌘", "⇧", "{"] }] : []),
+                    ...(isTauri ? [
+                      { label: "Previous Tool", keys: ["⌘", "⇧", "{"] },
+                      { label: "Next Tool", keys: ["⌘", "⇧", "}"] },
+                    ] : []),
                   ].map(({ label, keys }) => (
                     <div key={label} className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                       <span>{label}</span>
