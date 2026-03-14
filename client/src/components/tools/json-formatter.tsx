@@ -229,7 +229,8 @@ export default function JSONFormatter() {
         try {
           const repaired = smartRepair(input);
           JSON.parse(repaired);
-          setCanRepair(true); // Repair produces valid JSON
+          setCanRepair(true);
+          if (!autoRepair) updateState({ autoRepair: true }); // Auto-enable when fixable
         } catch {
           setCanRepair(false); // Repair also fails
         }
