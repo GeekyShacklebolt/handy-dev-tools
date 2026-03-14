@@ -404,6 +404,18 @@ export default function JSONFormatter() {
           <div className="flex flex-wrap items-center gap-2">
             <Button size="sm" variant="outline" onClick={minifyJSON}>Minify</Button>
             <Button size="sm" variant="outline" onClick={loadExample}>Load Example</Button>
+            <div className="flex items-center gap-1.5 ml-auto">
+              <Switch
+                id="auto-repair"
+                checked={autoRepair && canRepair}
+                onCheckedChange={(checked) => updateState({ autoRepair: checked })}
+                disabled={!canRepair}
+              />
+              <Label htmlFor="auto-repair" className={`text-xs flex items-center gap-1 ${canRepair ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
+                <Wand2 className="h-3 w-3" />
+                Auto-fix
+              </Label>
+            </div>
           </div>
 
           {/* Code editor with error highlights */}
@@ -450,18 +462,6 @@ export default function JSONFormatter() {
                 <SelectItem value="8">8 Spaces</SelectItem>
               </SelectContent>
             </Select>
-            <div className="flex items-center gap-1.5">
-              <Switch
-                id="auto-repair"
-                checked={autoRepair && canRepair}
-                onCheckedChange={(checked) => updateState({ autoRepair: checked })}
-                disabled={!canRepair}
-              />
-              <Label htmlFor="auto-repair" className={`text-xs flex items-center gap-1 ${canRepair ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
-                <Wand2 className="h-3 w-3" />
-                Auto-fix
-              </Label>
-            </div>
             <Input
               id="jsonpath-input"
               placeholder="JSONPath e.g: $.store.book[*].author"
